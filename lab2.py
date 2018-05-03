@@ -1,4 +1,4 @@
-def sqlite_test():
+def input_data_test():
 	import sqlite3
 	 
 	# SQLite DB파일을 생성하거나 연결합니다.
@@ -15,8 +15,8 @@ def sqlite_test():
 	# 테이블을 만듭니다.
 	cur.execute(table_create_sql)
 	# print("created")
-	wh = input("What? ")
-	du = input("Due? ")
+	wh = input("What?")
+	du = input("Due?")
 	sql = "insert into todo (what, due) values ('" + wh + "', '" + du + "')"
 	cur.execute(sql)
 	conn.commit()
@@ -33,4 +33,4 @@ def sqlite_test():
 	# 커넥션을 종료합니다.
 	conn.close()
 if __name__ == "__main__":
-    sqlite_test()
+    input_data_test()
