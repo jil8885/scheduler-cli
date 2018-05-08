@@ -39,10 +39,10 @@ def main_scheduler():
     # 처음에 해당 테이블이 없을 때 테이블 생성 구문
     cur.execute(create_table)
     # 각종 도움말 메세지 문자열
-    add_help_string = 'To add schedule, input \"add 3/2 {내용} in {분류}\". You can omit \"in {분류}\".\n'
-    del_help_string = 'To delete schedule, input \"delete all\" or \"delete {숫자}\".\n'
-    update_help_string = 'To update schedule, input \"update {숫자} done\" or \"update {숫자} undone\".\n'
-    check_help_string = 'To check schedule, input \"show all\" or \"show {숫자}\".\n'
+    add_help_string = 'To add schedule, input \"add 3/2 {content} in {category}\". You can omit \"in {category}\".\n'
+    del_help_string = 'To delete schedule, input \"delete all\" or \"delete {index}\".\n'
+    update_help_string = 'To update schedule, input \"update {index} done\" or \"update {index} undone\".\n'
+    check_help_string = 'To check schedule, input \"show all\" or \"show {index}\".\n'
     exit_help_string = 'To exit, input \"exit\".'
     help_string = add_help_string + del_help_string + update_help_string + check_help_string + exit_help_string
     # 초기 도움말 메세지 1회 출력
@@ -61,16 +61,16 @@ def main_scheduler():
                     if not isvaliddate(int(month), int(day)):
                         print('유효한 날짜가 아닙니다.')
                         continue
-                    # in 키워드를 통해 어느 분류에 넣을지 정할 수 있다.
+                    # in 키워드를 통해 어느 category에 넣을지 정할 수 있다.
                     try:
                         category_split = command.index('in')
                         category_list = command[category_split + 1:]
                         content_list = command[2:category_split]
-                    # in 키워드가 없으면 미분류 처리한다.
+                    # in 키워드가 없으면 미category 처리한다.
                     except:
                         category = 'No category'
                         content_list = command[2:]
-                    # 내용, 분류를 띄어쓰기로 묶기
+                    # content, category를 띄어쓰기로 묶기
                     content = ''
                     for x in content_list:
                         content += x + ' '
@@ -79,11 +79,11 @@ def main_scheduler():
                         category += x + ' '
                     category = category.strip()
                     cur.execute(insert_data, (category, month + '/' + day, content, 0))
-                    print(month + '월' + day + '일에 ' + content +' 일정이 ' + category + ' 분류에 저장되었습니다.')
+                    print('schedule ' + content + ' in ' + category + ' at ' + command[1])
                     conn.commit()
                 # 명령어에 날짜가 없는 경우 다시 입력 받기
                 else:
-                    print('명령어에 날짜가 없습니다.')
+                    print('There is no date in command')
             # 날짜도 없으면 스케쥴 추가 문자열 출력
             else:
                 print(add_help_string.strip())
@@ -122,7 +122,7 @@ def main_scheduler():
                 print(check_help_string.strip())
         # 일정을 끝났는지 안끝났는지 명령어
         elif command[0] == 'update':
-            # 두번째 키워드가 숫자이면,
+            # 두번째 키워드가 index이면,
             try:
                 position = int(command[1])
             # 아니면 update 도움말을 출력하도록 설정
@@ -136,11 +136,11 @@ def main_scheduler():
                 print('no schedule found')
                 continue
             if command[2] == 'done':
-                print(position, '위치의 일정이 done 상태로 변경되었습니다.')
+                print('index:', position, '\'s state is changed to done')
                 cur.execute(update_data_by_id, (1, position,))
                 conn.commit()
             elif command[2] == 'undone':
-                print(position, '위치의 일정이 undone 상태로 변경되었습니다.')
+                print('index:', position, '\'s state is changed to undone')
                 cur.execute(update_data_by_id, (0, position,))
                 conn.commit()
             else:
@@ -151,7 +151,7 @@ def main_scheduler():
         elif command[0] == 'help':
             print(help_string.strip())
         else:
-            print('명령어를 확인하시려면 help를 입력해주세요.')
+            print('To get more info, plz input command \'help\'')
     cur.close()
     conn.close()
 
