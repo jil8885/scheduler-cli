@@ -8,7 +8,7 @@ def isvaliddate(month, day):
 def make_string(schedule_list):
     string = 'id\t|due\t\t|content\t\t|category\t|done\n'
     string += '-' * 80 + '\n'
-    done = ['undone', 'undone']
+    done = ['undone', 'done']
     if schedule_list == []:
         string += 'No result found. To show all schedule, enter \"show all\"'
     for x in schedule_list:
@@ -131,9 +131,11 @@ def main_scheduler():
                 print('no schedule found')
                 continue
             if command[2] == 'done':
+                print(position, '위치의 일정이 done 상태로 변경되었습니다.')
                 cur.execute(update_data_by_id, (1, position,))
                 conn.commit()
             elif command[2] == 'undone':
+                print(position, '위치의 일정이 undone 상태로 변경되었습니다.')
                 cur.execute(update_data_by_id, (0, position,))
                 conn.commit()
             else:
