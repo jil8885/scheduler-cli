@@ -34,6 +34,7 @@ def main_scheduler():
     select_data = 'select * from todo where id=?'
     # 카테고리로 스케쥴 선택 sql 구문
     select_data_cat = 'select * from todo where category=?'
+    # id로 일정 업데이트 sql 구문
     update_data_by_id = 'update todo set done = ? where id = ?'
     # 처음에 해당 테이블이 없을 때 테이블 생성 구문
     cur.execute(create_table)
@@ -96,6 +97,7 @@ def main_scheduler():
                 try:
                     cur.execute(delete_data,(int(command[1]),))
                     conn.commit()
+                # id로 된 일정이 없으면 예외처리
                 except:
                     print(del_help_string.strip())
         elif command[0] == 'show':
@@ -118,9 +120,12 @@ def main_scheduler():
                     conn.commit()                    
             except:
                 print(check_help_string.strip())
+        # 일정을 끝났는지 안끝났는지 명령어
         elif command[0] == 'update':
+            # 두번째 키워드가 숫자이면,
             try:
                 position = int(command[1])
+            # 아니면 update 도움말을 출력하도록 설정
             except:
                 print(update_help_string)
                 continue
