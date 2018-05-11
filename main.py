@@ -12,7 +12,7 @@ def make_string(schedule_list):
     if schedule_list == []:
         string += 'No result found. To show all schedule, enter \"show all\"'
     for x in schedule_list:
-        string += '%7s |%14s |%22s |%14s |%15s\n'%(str(x[0]), x[2], x[3], x[1], done[x[4]])
+        string += '%-7s |%-14s |%-22s |%-14s |%-15s\n'%(str(x[0]), x[2], x[3], x[1], done[x[4]])
     return string.strip()
 def main_scheduler():
     import sqlite3, sys
@@ -74,6 +74,9 @@ def main_scheduler():
                     content = ''
                     for x in content_list:
                         content += x + ' '
+                    if len(content) > 22:
+                        print("plz enter content less than 20 letters")
+                        continue
                     category = ''
                     for x in category_list:
                         category += x + ' '
