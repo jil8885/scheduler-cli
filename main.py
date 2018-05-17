@@ -41,12 +41,13 @@ def main_scheduler():
     # 처음에 해당 테이블이 없을 때 테이블 생성 구문
     cur.execute(create_table)
     # 각종 도움말 메세지 문자열
-    add_help_string = 'To add schedule, input \"add 3/2 {content} in {category}\". You can omit \"in {category}\".\n'
-    del_help_string = 'To delete schedule, input \"delete all\" or \"delete {index}\".\n'
-    update_help_string = 'To update schedule, input \"update {index} done\" or \"update {index} undone\".\n'
-    check_help_string = 'To check schedule, input \"show all\" or \"show {index}\".\n'
-    exit_help_string = 'To exit, input \"exit\".'
-    help_string = add_help_string + del_help_string + update_help_string + check_help_string + exit_help_string
+    up_string = colored("=" * 90 + '\n', 'yellow')
+    add_help_string = 'To add schedule, input \"add {} {} in {}\". You can omit \"in {}\".\n'.format(colored('{due(ex.3/2)}', 'yellow'), colored('{content}', 'yellow'), colored('{category}', 'yellow'), colored('{category}', 'yellow'))
+    del_help_string = 'To delete schedule, input \"delete all\" or \"delete {}\".\n'.format(colored('{content}', 'yellow'))
+    update_help_string = 'To update schedule, input \"update {} done\" or \"update {} undone\".\n'.format(colored('{index}', 'yellow'), colored('{index}', 'yellow'))
+    check_help_string = 'To check schedule, input \"{}\" or \"{}\".\n'.format(colored('show all', 'yellow'), colored('show {index}', 'yellow'))
+    exit_help_string = 'To exit, input \"{}\".\n'.format(colored('exit', 'yellow'))
+    help_string = up_string + add_help_string + del_help_string + update_help_string + check_help_string + exit_help_string + up_string
     # 초기 도움말 메세지 1회 출력
     print(help_string)
     # exit을 입력받을 때까지 계속 입력
@@ -61,7 +62,6 @@ def main_scheduler():
                 if '/' in command[1]:
                     month, day = command[1].split('/')
                     if not isvaliddate(int(month), int(day)):
-                        print('유효한 날짜가 아닙니다.')
                         continue
                     # in 키워드를 통해 어느 category에 넣을지 정할 수 있다.
                     try:
