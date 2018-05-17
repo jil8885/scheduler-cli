@@ -30,9 +30,9 @@ def main_scheduler():
     conn = sqlite3.connect("scheduler.db")
     cur = conn.cursor()
     # table 만드는 sql 구문
-    create_table = 'create table if not exists todo(id integer primary key autoincrement, category text not null, due text not null, what text not null, done integer);'
+    create_table = 'create table if not exists todo(id integer primary key autoincrement, category text not null, month integer not null, day integer not null, what text not null, done integer);'
     # 새 스케쥴 만드는 sql 구문
-    insert_data = 'insert into todo (category, due, what, done) values (?,?, ?, ?)'
+    insert_data = 'insert into todo (category, month, day, what, done) values (?,?, ?, ?, ?)'
     # 모든 스케쥴 삭제 sql 구문
     delete_all_data = 'drop table todo'
     # id로 스케쥴 삭제 sql 구문
@@ -48,7 +48,7 @@ def main_scheduler():
     # 처음에 해당 테이블이 없을 때 테이블 생성 구문
     cur.execute(create_table)
     # 각종 도움말 메세지 문자열
-    up_string = colored("=" * 90 + '\n', 'yellow')
+    up_string = '\n\n'
     add_help_string = 'To add schedule, input \"add {} {} in {}\". You can omit \"in {}\".\n'.format(colored('{due(ex.3/2)}', 'yellow'), colored('{content}', 'yellow'), colored('{category}', 'yellow'), colored('{category}', 'yellow'))
     del_help_string = 'To delete schedule, input \"delete all\" or \"delete {}\".\n'.format(colored('{content}', 'yellow'))
     update_help_string = 'To update schedule, input \"update {} done\" or \"update {} undone\".\n'.format(colored('{index}', 'yellow'), colored('{index}', 'yellow'))
@@ -90,7 +90,7 @@ def main_scheduler():
                     for x in category_list:
                         category += x + ' '
                     category = category.strip()
-                    cur.execute(insert_data, (category, month + '/' + day, content, 0))
+                    cur.execute(insert_data, (category, int(month), int(day), content, 0))
                     print('schedule ' + content + ' in ' + category + ' at ' + command[1])
                     conn.commit()
                 # 명령어에 날짜가 없는 경우 다시 입력 받기
