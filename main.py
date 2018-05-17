@@ -1,3 +1,4 @@
+from termcolor import colored
 # 일정 추가시 유효한 날짜인지 구별하는 함수
 def isvaliddate(month, day):
     month31 = [1, 3, 5, 7, 8, 10, 12]
@@ -9,10 +10,11 @@ def make_string(schedule_list):
     string = 'id\t|due\t\t|content\t\t|category\t|done\n'
     string += '-' * 80 + '\n'
     done = ['undone', 'done']
+    color = ['red', 'green']
     if schedule_list == []:
         string += 'No result found. To show all schedule, enter \"show all\"'
     for x in schedule_list:
-        string += '%-7s |%-14s |%-22s |%-14s |%-15s\n'%(str(x[0]), x[2], x[3], x[1], done[x[4]])
+        string += '%-7s |%-14s |%-22s |%-14s |%-15s\n'%(str(x[0]), x[2], x[3], x[1], colored(done[x[4]], color[x[4]]))
     return string.strip()
 def main_scheduler():
     import sqlite3, sys
