@@ -16,6 +16,13 @@ def make_string(schedule_list):
     for x in schedule_list:
         string += '%-7s |%-14s |%-22s |%-14s |%-15s\n'%(str(x[0]), x[2], x[3], x[1], colored(done[x[4]], color[x[4]]))
     return string.strip()
+
+def printCalendar(year, month):
+	import calendar
+	c = calendar.TextCalendar(calendar.SUNDAY)
+	str = c.formatmonth(year, month)
+	print(str)
+    
 def main_scheduler():
     import sqlite3, sys
 
