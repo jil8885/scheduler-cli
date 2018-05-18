@@ -3,7 +3,6 @@ from termcolor import colored
 
 
 def make_string(schedule_list):
-    print(schedule_list)
     string = 'id\t|due\t\t|content\t\t|category\t|done\n'
     string += '-' * 80 + '\n'
     done = ['undone', 'done']
