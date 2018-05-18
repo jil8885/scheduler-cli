@@ -43,7 +43,7 @@ def input_command(command):
                 if not valid_date(int(month), int(day)):
                     return 1
                 # in 키워드를 통해 어느 category에 넣을지 정할 수 있다.
-                if 'in' not in command:
+                if 'in' in command:
                     category_split = command.index('in')
                     category_list = command[category_split + 1:]
                     content_list = command[2:category_split]
@@ -59,9 +59,13 @@ def input_command(command):
                     print("plz enter content less than 20 letters")
                     return 1
                 category = ''
-                for x in category_list:
-                    category += x + ' '
+                if 'in' in command:
+                    for x in category_list:
+                        category += x + ' '
+                else:
+                    category = "No category"
                 category = category.strip()
+                content = content.strip()
                 cur.execute(insert_data, (category, int(month), int(day), content, 0))
                 print('schedule ' + content + ' in ' + category + ' at ' + command[1])
                 conn.commit()

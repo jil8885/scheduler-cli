@@ -13,7 +13,7 @@ with open(join(this_dir, 'README.rst'), encoding='utf-8') as file:
 
 
 setup(
-    name = 'scheduler',
+    name = 'scheduler_todo',
     version = __version__,
     description = 'A scheduler command line program in Python.',
     long_description = long_description,
