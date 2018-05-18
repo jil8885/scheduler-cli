@@ -3,6 +3,11 @@ from .make_string import make_string
 from termcolor import colored
 import sqlite3
 
+def print_calendar(year, month):
+    import calendar
+    c = calendar.TextCalendar(calendar.SUNDAY)
+    string = c.formatmonth(year, month)
+    print(string)
 
 def input_command(command):
     if type(command) is str:
@@ -38,7 +43,7 @@ def input_command(command):
                 if not valid_date(int(month), int(day)):
                     return 1
                 # in 키워드를 통해 어느 category에 넣을지 정할 수 있다.
-                if command.index('in') != -1:
+                if 'in' not in command:
                     category_split = command.index('in')
                     category_list = command[category_split + 1:]
                     content_list = command[2:category_split]
@@ -96,6 +101,18 @@ def input_command(command):
             result = cur.fetchall()
             print(make_string(result))
             conn.commit()
+        elif (command[1] == 'calender' or command[1] == 'cal') and len(command) == 3:
+            if '/' in command[2] and command[2].split("/")[0].isdigit() and command[2].split("/")[1].isdigit():
+                if 70 < int(command[2].split("/")[0]) < 100:
+                    year = int(command[2].split("/")[0]) + 1900
+                elif 0 < int(command[2].split("/")[0]) <= 70:
+                    year = int(command[2].split("/")[0]) + 2000
+                else:
+                    year = int(command[2].split("/")[0])
+                print_calendar(year, int(command[2].split("/")[1]))
+            else:
+                print(1)
+                print(check_help_string.strip())
         else:
             print(check_help_string.strip())
     # 일정을 끝났는지 안끝났는지 명령어

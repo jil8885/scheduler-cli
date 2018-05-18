@@ -3,13 +3,6 @@ from .input_command import input_command
 import sys
 
 
-def print_calendar(year, month):
-    import calendar
-    c = calendar.TextCalendar(calendar.SUNDAY)
-    string = c.formatmonth(year, month)
-    print(string)
-
-
 def main_scheduler():
     import sqlite3
 
