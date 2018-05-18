@@ -1,5 +1,5 @@
-from valid_date import valid_date
-from make_string import make_string
+from .valid_date import valid_date
+from .make_string import make_string
 from termcolor import colored
 import sqlite3
 

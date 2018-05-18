@@ -1,5 +1,5 @@
 from termcolor import colored
-from input_command import input_command
+from .input_command import input_command
 import sys
 
 
