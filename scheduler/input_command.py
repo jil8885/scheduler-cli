@@ -26,6 +26,12 @@ def input_command(command):
     select_data = 'select * from todo where id=?'
     # 카테고리로 스케쥴 선택 sql 구문
     select_data_cat = 'select * from todo where category=?'
+    # 월별로 스케쥴 선택 sql 구문
+    select_data_mon = 'select * from todo where month=?'
+    month_dic = {"January": 1, "january": 1, "Jan": 1, "jan": 1, "February": 2, "Feb": 2, "february": 2, "feb": 2, "March": 3, "march": 3,
+                 "Mar": 3, "mar": 3, "April": 4, "april": 4, "Apr": 4, "apr": 4, "May": 5, "may": 5, "June": 6, "june": 6, "July": 7, "july": 7,
+                 "August": 8, "august": 8, "Aug": 8, "aug": 8, "September": 9, "Sep": 9, "september": 9, "sep": 9, "October": 10, "Oct": 10,
+                 "october": 10, "oct": 10, "November": 11, "Nov": 11, "november": 11, "nov": 11, "December": 12, "Dec": 12, "december": 12, "dec": 12}
     # id로 일정 업데이트 sql 구문
     update_data_by_id = 'update todo set done = ? where id = ?'
     up_string = '\n'
@@ -41,6 +47,7 @@ def input_command(command):
             if '/' in command[1]:
                 month, day = command[1].split('/')
                 if not valid_date(int(month), int(day)):
+                    print("Date is not valid")
                     return 1
                 # in 키워드를 통해 어느 category에 넣을지 정할 수 있다.
                 if 'in' in command:
@@ -82,12 +89,16 @@ def input_command(command):
             conn.commit()
         # id로 스케쥴 찾아서 삭제
         else:
-            try:
+            if int(command[1]) in id:
                 cur.execute(delete_data, (int(command[1]),))
                 conn.commit()
+                print(command[1], "위치의 일정이 제거되었습니다.")
             # id로 된 일정이 없으면 예외처리
-            except:
+            else:
                 print(del_help_string.strip())
+            cur.execute(select_data_all)
+            result = cur.fetchall()
+            print(make_string(result))
     elif command[0] == 'show':
         # 스케쥴 모두 보기
         if command[1] == 'all':
@@ -105,6 +116,13 @@ def input_command(command):
             result = cur.fetchall()
             print(make_string(result))
             conn.commit()
+        elif command[1] == 'at':
+            if command[2] in month_dic.keys():
+                cur.execute(select_data_mon, (month_dic[command[2]],))
+                result = cur.fetchall()
+                print(make_string(result))
+            else:
+                print("invalid month")
         elif (command[1] == 'calender' or command[1] == 'cal') and len(command) == 3:
             if '/' in command[2] and command[2].split("/")[0].isdigit() and command[2].split("/")[1].isdigit():
                 if 70 < int(command[2].split("/")[0]) < 100:
