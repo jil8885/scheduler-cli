@@ -18,14 +18,14 @@ Usage
 ----------------
 
 ::
-    add {due} {content} in {category}
+
+	add {due} {content} in {category}
 
 Example
 ------------
-
 ::
-    add 3/2 hit hoesung in school
 
+	add 3/2 hit hoesung in school
 Changelog
 -----------
 
