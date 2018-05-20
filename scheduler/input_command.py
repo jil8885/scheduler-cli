@@ -3,11 +3,19 @@ from .make_string import make_string
 from termcolor import colored
 import sqlite3
 
+
 def print_calendar(year, month):
     import calendar
     c = calendar.TextCalendar(calendar.SUNDAY)
     string = c.formatmonth(year, month)
     print(string)
+
+
+def done_percent(all, done):
+    number_of_done = int(done * 100 / all)
+    print(colored('>' * (number_of_done // 2), 'green') + colored('>' * ((100 - number_of_done)//2), 'red'))
+    print("{}% Completed".format(number_of_done))
+
 
 def input_command(command):
     if type(command) is str:
@@ -22,12 +30,16 @@ def input_command(command):
     delete_data = 'delete from todo where id = ?'
     # 모든 스케쥴 선택 sql 구문
     select_data_all = 'select * from todo'
+    select_data_all_done = 'select * from todo where done = 1'
     # id로 스케쥴 선택 sql 구문
     select_data = 'select * from todo where id=?'
+    select_data_done = 'select * from todo where id=? and  done = 1'
     # 카테고리로 스케쥴 선택 sql 구문
     select_data_cat = 'select * from todo where category=?'
+    select_data_cat_done = 'select * from todo where category=? and done = 1'
     # 월별로 스케쥴 선택 sql 구문
     select_data_mon = 'select * from todo where month=?'
+    select_data_mon_done = 'select * from todo where month=? and done = 1'
     month_dic = {"January": 1, "january": 1, "Jan": 1, "jan": 1, "February": 2, "Feb": 2, "february": 2, "feb": 2, "March": 3, "march": 3,
                  "Mar": 3, "mar": 3, "April": 4, "april": 4, "Apr": 4, "apr": 4, "May": 5, "may": 5, "June": 6, "june": 6, "July": 7, "july": 7,
                  "August": 8, "august": 8, "Aug": 8, "aug": 8, "September": 9, "Sep": 9, "september": 9, "sep": 9, "October": 10, "Oct": 10,
@@ -103,27 +115,41 @@ def input_command(command):
             result = cur.fetchall()
             print(make_string(result))
     elif command[0] == 'show':
+        all_length = 0
+        done_length = 0
         # 스케쥴 모두 보기
         if command[1] == 'all':
             cur.execute(select_data_all)
             result = cur.fetchall()
+            all_length = len(result)
             print(make_string(result))
+            cur.execute(select_data_all_done)
+            done_length = len(cur.fetchall())
         # id로 스케쥴 검색
         elif command[1].isdigit():
             cur.execute(select_data, (command[1],))
             result = cur.fetchall()
+            all_length = len(result)
             print(make_string(result))
+            cur.execute(select_data_done, (command[1], ))
+            done_length = len(cur.fetchall())
         # 카테고리로 스케쥴 검색
         elif command[1] == 'in':
             cur.execute(select_data_cat, (command[2],))
             result = cur.fetchall()
+            all_length = len(result)
             print(make_string(result))
             conn.commit()
+            cur.execute(select_data_cat_done, (command[2], ))
+            done_length = len(cur.fetchall())
         elif command[1] == 'at':
             if command[2] in month_dic.keys():
                 cur.execute(select_data_mon, (month_dic[command[2]],))
                 result = cur.fetchall()
+                all_length = len(result)
                 print(make_string(result))
+                cur.execute(select_data_mon_done, (month_dic[command[2]],))
+                done_length = len(cur.fetchall())
             else:
                 print("invalid month")
         elif (command[1] == 'calender' or command[1] == 'cal') and len(command) == 3:
@@ -136,10 +162,11 @@ def input_command(command):
                     year = int(command[2].split("/")[0])
                 print_calendar(year, int(command[2].split("/")[1]))
             else:
-                print(1)
                 print(check_help_string.strip())
         else:
             print(check_help_string.strip())
+        if all_length != 0:
+            done_percent(all_length, done_length)
     # 일정을 끝났는지 안끝났는지 명령어
     elif command[0] == 'update':
         # 두번째 키워드가 index이면,
