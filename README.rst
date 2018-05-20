@@ -26,6 +26,41 @@ Example
 ::
 
 	add 3/2 hit hoesung in school
+
+Example without category
+
+::
+
+	add 3/2 hit hoesung
+
+1. Delete schedule
+-----------
+
+::
+
+	delete {index}
+
+::
+
+	delete {category}
+
+Example with deleting all schedule
+
+::
+
+	delete all
+
+Example with index
+
+::
+
+	delete 3
+
+Example with category
+
+::
+
+	delete in school
 Changelog
 -----------
 
