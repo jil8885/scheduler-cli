@@ -33,34 +33,86 @@ Example without category
 
 	add 3/2 hit hoesung
 
-1. Delete schedule
+
+
+
+
+3. Update schedule
 -----------
 
 ::
 
-	delete {index}
+	update {index} {done/undone}
 
 ::
 
-	delete {category}
+	update {index} at {date to modify}
 
-Example with deleting all schedule
+
+Example with index to modify done/undone
 
 ::
 
-	delete all
+	update 3 done
+
+Example with index to modify date
+
+::
+
+	update 3 at 5/31
+
+Example with category to modify done/undone
+
+::
+
+	update in school done
+
+Example with category to modify date
+
+::
+
+	update in school at 6/31
+
+
+
+4. Print schedule
+-----------
+
+::
+
+	show {index}
+
+::
+
+	show in {category}
+
+::
+
+	show at {month}
+
+Example with showing all schedule
+
+::
+
+	show all
 
 Example with index
 
 ::
 
-	delete 3
+	show 3
 
 Example with category
 
 ::
 
-	delete in school
+	show in school
+
+Example with month
+
+::
+
+	show at May
 Changelog
 -----------
 
