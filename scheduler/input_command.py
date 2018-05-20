@@ -34,6 +34,9 @@ def input_command(command):
                  "october": 10, "oct": 10, "November": 11, "Nov": 11, "november": 11, "nov": 11, "December": 12, "Dec": 12, "december": 12, "dec": 12}
     # id로 일정 업데이트 sql 구문
     update_data_by_id = 'update todo set done = ? where id = ?'
+    update_data_by_id_due = 'update todo set month = ?, day = ? where id = ?'
+    update_data_by_cat = 'update todo set done = ? where category = ?'
+    update_data_by_cat_due = 'update todo set month = ?, day = ? where category = ?'
     up_string = '\n'
     add_help_string = 'To add schedule, input \"add {} {} in {}\". You can omit \"in {}\".\n'.format(colored('{due(ex.3/2)}', 'yellow'), colored('{content}', 'yellow'), colored('{category}', 'yellow'), colored('{category}', 'yellow'))
     del_help_string = 'To delete schedule, input \"delete all\" or \"delete {}\".\n'.format(colored('{content}', 'yellow'))
@@ -142,26 +145,58 @@ def input_command(command):
         # 두번째 키워드가 index이면,
         if command[1].isdigit():
             position = int(command[1])
+            try:
+                cur.execute(select_data, (position,))
+                result = cur.fetchall()
+            except:
+                print('no schedule found')
+                return 1
+            if command[2] == 'done':
+                print('index:', position, '\'s state is changed to done')
+                cur.execute(update_data_by_id, (1, position,))
+                conn.commit()
+            elif command[2] == 'undone':
+                print('index:', position, '\'s state is changed to undone')
+                cur.execute(update_data_by_id, (0, position,))
+                conn.commit()
+            elif command[2] == 'at' and len(command) == 4 and '/' in command[3]:
+                month, day = command[3].split('/')
+                if not valid_date(int(month), int(day)):
+                    print("Date is not valid")
+                    return 1
+                print('index:', position, '\'s due is changed to ' + command[3])
+                cur.execute(update_data_by_id_due, (int(month), int(day), position,))
+                conn.commit()
+        # 두번째 키워드가 category이면,
+        elif command[1] == 'in' and len(command) > 3:
+            category = command[2]
+            cur.execute(select_data_cat, (category,))
+            result = cur.fetchall()
+            if not result:
+                print('no schedule found')
+                return 1
+            if command[3] == 'done':
+                print('schedule in :', category, '\'s state is changed to done')
+                cur.execute(update_data_by_cat, (1, category,))
+                conn.commit()
+            elif command[3] == 'undone':
+                print('schedule in :', category, '\'s state is changed to undone')
+                cur.execute(update_data_by_id, (0, category,))
+                conn.commit()
+            elif command[3] == 'at' and len(command) == 5 and '/' in command[4]:
+                month, day = command[4].split('/')
+                if not valid_date(int(month), int(day)):
+                    print("Date is not valid")
+                    return 1
+                print('schedule in :', category, '\'s due is changed to ' + command[4])
+                cur.execute(update_data_by_cat_due, (int(month), int(day), category,))
+                conn.commit()
+            else:
+                print(update_help_string)
         # 아니면 update 도움말을 출력하도록 설정
         else:
             print(update_help_string)
             return 1
-        try:
-            cur.execute(select_data, (position,))
-            result = cur.fetchall()
-        except:
-            print('no schedule found')
-            return 1
-        if command[2] == 'done':
-            print('index:', position, '\'s state is changed to done')
-            cur.execute(update_data_by_id, (1, position,))
-            conn.commit()
-        elif command[2] == 'undone':
-            print('index:', position, '\'s state is changed to undone')
-            cur.execute(update_data_by_id, (0, position,))
-            conn.commit()
-        else:
-            print(update_help_string)
         conn.commit()
     elif command[0] == 'exit':
         return 1
