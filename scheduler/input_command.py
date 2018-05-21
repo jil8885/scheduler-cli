@@ -22,6 +22,25 @@ def input_command(command):
         command = command.split(' ')
     conn = sqlite3.connect("scheduler.db")
     cur = conn.cursor()
+    # 전체 도움말
+    full_help_string = "%-35s|%-45s|%-40s\n"%("function", colored("command", 'yellow'), "example")
+    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    full_help_string += "%-35s|%-45s|%-40s\n"%("add schedule with category", colored("add {due} {content} in {category}", 'yellow'), colored("add 3/2 go school in school", 'cyan'))
+    full_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 3/2 go school", 'cyan'))
+    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    full_help_string += "%-35s|%-45s|%-40s\n"%("delete all schedule", colored("delete all", 'yellow'), colored("delete all", 'cyan'))
+    full_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with index", colored("delete {index}", 'yellow'), colored("delete 3", 'cyan'))
+    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    full_help_string += "%-35s|%-45s|%-40s\n"%("update state with index", colored("update {index} {done/undone}", 'yellow'), colored("update 3 done", 'cyan'))
+    full_help_string += "%-35s|%-45s|%-40s\n"%("update due date with index", colored("update {index} at {due}", 'yellow'), colored("update 3 at 7/1", 'cyan'))
+    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    full_help_string += "%-35s|%-45s|%-40s\n"%("update state with category", colored("update in {index} {done/undone}", 'yellow'), colored("update in school done", 'cyan'))
+    full_help_string += "%-35s|%-45s|%-40s\n"%("update due date with category", colored("update in {index} at {due}", 'yellow'), colored("update in school at 7/1", 'cyan'))
+    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    full_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule", colored("show all", 'yellow'), colored("show all", 'cyan'))
+    full_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with index", colored("show {index}", 'yellow'), colored("show 3", 'cyan'))
+    full_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule in category", colored("show in {category}", 'yellow'), colored("show in school", 'cyan'))
+    full_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule at month", colored("show in {month}", 'yellow'), colored("show at july", 'cyan'))
     # 새 스케쥴 만드는 sql 구문
     insert_data = 'insert into todo (category, month, day, what, done) values (?,?, ?, ?, ?)'
     # 모든 스케쥴 삭제 sql 구문
@@ -104,12 +123,12 @@ def input_command(command):
             conn.commit()
         # id로 스케쥴 찾아서 삭제
         else:
-            if int(command[1]) in id:
+            try:
                 cur.execute(delete_data, (int(command[1]),))
                 conn.commit()
                 print(command[1], "위치의 일정이 제거되었습니다.")
             # id로 된 일정이 없으면 예외처리
-            else:
+            except:
                 print(del_help_string.strip())
             cur.execute(select_data_all)
             result = cur.fetchall()
@@ -228,7 +247,7 @@ def input_command(command):
     elif command[0] == 'exit':
         return 1
     elif command[0] == 'help':
-        print(help_string.strip())
+        print(full_help_string.strip())
     else:
         print('To get more info, plz input command \'help\'')
     conn.close()
