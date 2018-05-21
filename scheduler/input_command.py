@@ -1,6 +1,7 @@
 from .valid_date import valid_date
 from .make_string import make_string
 from termcolor import colored
+from pathlib import Path
 import sqlite3
 
 
@@ -18,9 +19,10 @@ def done_percent(all, done):
 
 
 def input_command(command):
+    home_dir = str(Path.home())
     if type(command) is str:
         command = command.split(' ')
-    conn = sqlite3.connect("scheduler.db")
+    conn = sqlite3.connect(home_dir + "/scheduler.db")
     cur = conn.cursor()
     # 전체 도움말
     title_string = "%-35s|%-45s|%-40s\n"%("function", colored("command", 'yellow'), "example")
@@ -156,7 +158,10 @@ def input_command(command):
             done_length = len(cur.fetchall())
         # 카테고리로 스케쥴 검색
         elif command[1] == 'in':
-            cur.execute(select_data_cat, (command[2],))
+            category = ''
+            for x in command[2:]:
+                category += x
+            cur.execute(select_data_cat, (category,))
             result = cur.fetchall()
             all_length = len(result)
             print(make_string(result))
@@ -225,7 +230,9 @@ def input_command(command):
                 conn.commit()
         # 두번째 키워드가 category이면,
         elif command[1] == 'in' and len(command) > 3:
-            category = command[2]
+            category = ''
+            for x in category[2:]:
+                category += x
             cur.execute(select_data_cat, (category,))
             result = cur.fetchall()
             if not result:

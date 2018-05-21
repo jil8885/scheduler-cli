@@ -1,13 +1,14 @@
 from termcolor import colored
 from .input_command import input_command
 import sys
+from pathlib import Path
 
 
 def main_scheduler():
     import sqlite3
-
+    home_dir = str(Path.home())
     # SQLite DB파일을 생성하거나 연결합니다.
-    conn = sqlite3.connect("scheduler.db")
+    conn = sqlite3.connect(home_dir + "/scheduler.db")
     cur = conn.cursor()
     # table 만드는 sql 구문
     create_table = 'create table if not exists todo(id integer primary key autoincrement, category text not null, month integer not null, day integer not null, what text not null, done integer)'
