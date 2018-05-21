@@ -160,13 +160,13 @@ def input_command(command):
         elif command[1] == 'in':
             category = ''
             for x in command[2:]:
-                category += x
-            cur.execute(select_data_cat, (category,))
+                category += x + ' '
+            cur.execute(select_data_cat, (category.strip(),))
             result = cur.fetchall()
             all_length = len(result)
             print(make_string(result))
             conn.commit()
-            cur.execute(select_data_cat_done, (command[2], ))
+            cur.execute(select_data_cat_done, (category.strip(), ))
             done_length = len(cur.fetchall())
         elif command[1] == 'at':
             if command[2] in month_dic.keys():
@@ -232,8 +232,8 @@ def input_command(command):
         elif command[1] == 'in' and len(command) > 3:
             category = ''
             for x in category[2:]:
-                category += x
-            cur.execute(select_data_cat, (category,))
+                category += x + ' '
+            cur.execute(select_data_cat, (category.strip(),))
             result = cur.fetchall()
             if not result:
                 print('no schedule found')
