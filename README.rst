@@ -34,7 +34,43 @@ Example without category
 	add 3/2 hit hoesung
 
 
+2. Delete schedule
+-----------
 
+::
+
+	delete all
+
+::
+
+	delete {index}
+
+::
+
+	delete in {category}
+
+::
+
+	delete done/undone
+
+Example with index
+
+::
+
+	delete 3
+
+Example with category
+
+::
+
+	delete in school
+
+
+Example with state
+
+::
+
+	delete done
 
 
 3. Update schedule
@@ -90,6 +126,9 @@ Example with category to modify date
 
 	show at {month}
 
+::
+
+	show {done/undone}
 Example with showing all schedule
 
 ::
@@ -113,6 +152,12 @@ Example with month
 ::
 
 	show at May
+
+Example with state
+
+::
+
+	show undone
 Changelog
 -----------
 
