@@ -23,24 +23,30 @@ def input_command(command):
     conn = sqlite3.connect("scheduler.db")
     cur = conn.cursor()
     # 전체 도움말
-    full_help_string = "%-35s|%-45s|%-40s\n"%("function", colored("command", 'yellow'), "example")
-    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    full_help_string += "%-35s|%-45s|%-40s\n"%("add schedule with category", colored("add {due} {content} in {category}", 'yellow'), colored("add 3/2 go school in school", 'cyan'))
-    full_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 3/2 go school", 'cyan'))
-    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    full_help_string += "%-35s|%-45s|%-40s\n"%("delete all schedule", colored("delete all", 'yellow'), colored("delete all", 'cyan'))
-    full_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with index", colored("delete {index}", 'yellow'), colored("delete 3", 'cyan'))
-    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    full_help_string += "%-35s|%-45s|%-40s\n"%("update state with index", colored("update {index} {done/undone}", 'yellow'), colored("update 3 done", 'cyan'))
-    full_help_string += "%-35s|%-45s|%-40s\n"%("update due date with index", colored("update {index} at {due}", 'yellow'), colored("update 3 at 7/1", 'cyan'))
-    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    full_help_string += "%-35s|%-45s|%-40s\n"%("update state with category", colored("update in {index} {done/undone}", 'yellow'), colored("update in school done", 'cyan'))
-    full_help_string += "%-35s|%-45s|%-40s\n"%("update due date with category", colored("update in {index} at {due}", 'yellow'), colored("update in school at 7/1", 'cyan'))
-    full_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    full_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule", colored("show all", 'yellow'), colored("show all", 'cyan'))
-    full_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with index", colored("show {index}", 'yellow'), colored("show 3", 'cyan'))
-    full_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule in category", colored("show in {category}", 'yellow'), colored("show in school", 'cyan'))
-    full_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule at month", colored("show in {month}", 'yellow'), colored("show at july", 'cyan'))
+    title_string = "%-35s|%-45s|%-40s\n"%("function", colored("command", 'yellow'), "example")
+    add_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule with category", colored("add {due} {content} in {category}", 'yellow'), colored("add 3/2 go school in school", 'cyan'))
+    add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 3/2 go school", 'cyan'))
+    delete_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    delete_help_string += "%-35s|%-45s|%-40s\n"%("delete all schedule", colored("delete all", 'yellow'), colored("delete all", 'cyan'))
+    delete_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with index", colored("delete {index}", 'yellow'), colored("delete 3", 'cyan'))
+    update_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update state with index", colored("update {index} {done/undone}", 'yellow'), colored("update 3 done", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with index", colored("update {index} at {due}", 'yellow'), colored("update 3 at 7/1", 'cyan'))
+    update_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update state with category", colored("update in {index} {done/undone}", 'yellow'), colored("update in school done", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with category", colored("update in {index} at {due}", 'yellow'), colored("update in school at 7/1", 'cyan'))
+    show_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
+    show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule", colored("show all", 'yellow'), colored("show all", 'cyan'))
+    show_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with index", colored("show {index}", 'yellow'), colored("show 3", 'cyan'))
+    show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule in category", colored("show in {category}", 'yellow'), colored("show in school", 'cyan'))
+    show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule at month", colored("show in {month}", 'yellow'), colored("show at july", 'cyan'))
+    show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule with state", colored("show {state}", 'yellow'), colored("show undone", 'cyan'))
+    full_help_string = title_string + add_help_string + delete_help_string + update_help_string + show_help_string
+    add_help_string = title_string + add_help_string
+    delete_help_string = title_string + delete_help_string
+    update_help_string = title_string + update_help_string
+    show_help_string = title_string + show_help_string
     # 새 스케쥴 만드는 sql 구문
     insert_data = 'insert into todo (category, month, day, what, done) values (?,?, ?, ?, ?)'
     # 모든 스케쥴 삭제 sql 구문
@@ -50,12 +56,15 @@ def input_command(command):
     # 모든 스케쥴 선택 sql 구문
     select_data_all = 'select * from todo'
     select_data_all_done = 'select * from todo where done = 1'
+    select_data_all_undone = 'select * from todo where done = 0'
     # id로 스케쥴 선택 sql 구문
     select_data = 'select * from todo where id=?'
     select_data_done = 'select * from todo where id=? and  done = 1'
+    select_data_undone = 'select * from todo where id=? and  done = 1'
     # 카테고리로 스케쥴 선택 sql 구문
     select_data_cat = 'select * from todo where category=?'
     select_data_cat_done = 'select * from todo where category=? and done = 1'
+    select_data_cat_undone = 'select * from todo where category=? and done = 0'
     # 월별로 스케쥴 선택 sql 구문
     select_data_mon = 'select * from todo where month=?'
     select_data_mon_done = 'select * from todo where month=? and done = 1'
@@ -68,13 +77,6 @@ def input_command(command):
     update_data_by_id_due = 'update todo set month = ?, day = ? where id = ?'
     update_data_by_cat = 'update todo set done = ? where category = ?'
     update_data_by_cat_due = 'update todo set month = ?, day = ? where category = ?'
-    up_string = '\n'
-    add_help_string = 'To add schedule, input \"add {} {} in {}\". You can omit \"in {}\".\n'.format(colored('{due(ex.3/2)}', 'yellow'), colored('{content}', 'yellow'), colored('{category}', 'yellow'), colored('{category}', 'yellow'))
-    del_help_string = 'To delete schedule, input \"delete all\" or \"delete {}\".\n'.format(colored('{content}', 'yellow'))
-    update_help_string = 'To update schedule, input \"update {} done\" or \"update {} undone\".\n'.format(colored('{index}', 'yellow'), colored('{index}', 'yellow'))
-    check_help_string = 'To check schedule, input \"{}\" or \"{}\".\n'.format(colored('show all', 'yellow'), colored('show {index}', 'yellow'))
-    exit_help_string = 'To exit, input \"{}\".\n'.format(colored('exit', 'yellow'))
-    help_string = up_string + add_help_string + del_help_string + update_help_string + check_help_string + exit_help_string + up_string
     if command[0] == 'add':
         if len(command) > 2:
             # 명령의 두번째 단어에 /가 없으면 날짜가 없는 것으로 간주하고, 추가하지 않는다.
@@ -129,7 +131,7 @@ def input_command(command):
                 print(command[1], "위치의 일정이 제거되었습니다.")
             # id로 된 일정이 없으면 예외처리
             except:
-                print(del_help_string.strip())
+                print(delete_help_string.strip())
             cur.execute(select_data_all)
             result = cur.fetchall()
             print(make_string(result))
@@ -171,6 +173,14 @@ def input_command(command):
                 done_length = len(cur.fetchall())
             else:
                 print("invalid month")
+        elif command[1] == "done":
+            cur.execute(select_data_all_done)
+            result = cur.fetchall()
+            print(make_string(result))
+        elif command[1] == "undone":
+            cur.execute(select_data_all_undone)
+            result = cur.fetchall()
+            print(make_string(result))
         elif (command[1] == 'calender' or command[1] == 'cal') and len(command) == 3:
             if '/' in command[2] and command[2].split("/")[0].isdigit() and command[2].split("/")[1].isdigit():
                 if 70 < int(command[2].split("/")[0]) < 100:
@@ -181,9 +191,9 @@ def input_command(command):
                     year = int(command[2].split("/")[0])
                 print_calendar(year, int(command[2].split("/")[1]))
             else:
-                print(check_help_string.strip())
+                print(show_help_string.strip())
         else:
-            print(check_help_string.strip())
+            print(show_help_string.strip())
         if all_length != 0:
             done_percent(all_length, done_length)
     # 일정을 끝났는지 안끝났는지 명령어
