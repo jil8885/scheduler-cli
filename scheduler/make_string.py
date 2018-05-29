@@ -1,8 +1,10 @@
 from termcolor import colored
+from colorama import init
 # 검색 후 결과 문자열 만드는 함수
 
 
 def make_string(schedule_list):
+    init()
     string = 'id\t|due\t\t|content\t\t|category\t|done\n'
     string += '-' * 80 + '\n'
     done = ['undone', 'done']

@@ -2,6 +2,7 @@ from .valid_date import valid_date
 from .make_string import make_string
 from termcolor import colored
 from pathlib import Path
+from colorama import init
 import sqlite3
 
 
@@ -19,13 +20,14 @@ def done_percent(all, done):
 
 
 def input_command(command):
+    init()
     home_dir = str(Path.home())
     if type(command) is str:
         command = command.split(' ')
     conn = sqlite3.connect(home_dir + "/scheduler.db")
     cur = conn.cursor()
     # 전체 도움말
-    title_string = "%-35s|%-45s|%-40s\n"%("function", colored("command", 'yellow'), "example")
+    title_string = "%-35s|%-36s|%-40s\n"%("function", "command", "example")
     add_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule with category", colored("add {due} {content} in {category}", 'yellow'), colored("add 3/2 go school in school", 'cyan'))
     add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 3/2 go school", 'cyan'))
@@ -43,12 +45,11 @@ def input_command(command):
     show_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with index", colored("show {index}", 'yellow'), colored("show 3", 'cyan'))
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule in category", colored("show in {category}", 'yellow'), colored("show in school", 'cyan'))
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule at month", colored("show in {month}", 'yellow'), colored("show at july", 'cyan'))
-    show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule with state", colored("show {state}", 'yellow'), colored("show undone", 'cyan'))
     full_help_string = title_string + add_help_string + delete_help_string + update_help_string + show_help_string
     add_help_string = title_string + add_help_string
-    delete_help_string = title_string + delete_help_string
-    update_help_string = title_string + update_help_string
     show_help_string = title_string + show_help_string
+    update_help_string = title_string + update_help_string
+    delete_help_string = title_string + delete_help_string
     # 새 스케쥴 만드는 sql 구문
     insert_data = 'insert into todo (category, month, day, what, done) values (?,?, ?, ?, ?)'
     # 모든 스케쥴 삭제 sql 구문
