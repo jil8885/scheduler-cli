@@ -6,7 +6,7 @@ from scheduler import __version__
 
 
 this_dir = abspath(dirname(__file__))
-with open(join(this_dir, 'README.rst'), encoding='utf-8') as file:
+with open(join(this_dir, 'README.rst')) as file:
     long_description = file.read()
 
 
@@ -14,7 +14,7 @@ with open(join(this_dir, 'README.rst'), encoding='utf-8') as file:
 
 setup(
     name = 'scheduler_todo',
-    version = __version__,
+    version = '0.0.6',
     description = 'A scheduler command line program in Python.',
     long_description = long_description,
     url = 'https://github.com/jil8885/scheduler-cli',
@@ -29,7 +29,7 @@ setup(
     ],
     keywords = ['cli','scheduler-cli'],
     packages = find_packages(exclude=['docs', 'tests*']),
-    install_requires = ['termcolor'],
+    install_requires = ['termcolor', 'colorama'],
     entry_points = {
         'console_scripts': [
             'scheduler-cli=scheduler.main:main_scheduler',
