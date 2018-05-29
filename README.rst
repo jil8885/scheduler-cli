@@ -15,7 +15,7 @@ Usage
 -----------------
 
 1. Add schedule
------------
+-------------------------------
 
 ::
 
@@ -35,7 +35,7 @@ Example without category
 
 
 2. Delete schedule
------------
+----------------------------------
 
 ::
 
@@ -74,7 +74,7 @@ Example with state
 
 
 3. Update schedule
------------
+------------------------------
 
 ::
 
@@ -112,7 +112,7 @@ Example with category to modify date
 
 
 4. Print schedule
------------
+------------------------------------
 
 ::
 
@@ -129,6 +129,7 @@ Example with category to modify date
 ::
 
 	show {done/undone}
+	
 Example with showing all schedule
 
 ::
@@ -158,8 +159,9 @@ Example with state
 ::
 
 	show undone
+
 Changelog
------------
+-----------------------------
 
 - v0.1 : Beta Version
 - v0.2 : add calender func and fix input bugs
