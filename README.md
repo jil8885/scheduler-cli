@@ -158,8 +158,27 @@ Example with state
 ::
 
 	show undone
+
+5. Pull schedule from server
+
+::
+
+	pull
+
+6. Pull schedule to server
+
+::
+
+	push
+
+7. Sync schedule with server
+
+::
+
+	push
 Changelog
 -----------
 
 - v0.1 : Beta Version
 - v0.2 : add calender func and fix input bugs
+- v0.7 : add func to sync server
