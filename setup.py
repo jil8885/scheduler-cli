@@ -29,10 +29,11 @@ setup(
     ],
     keywords = ['cli','scheduler-cli'],
     packages = find_packages(exclude=['docs', 'tests*']),
-    install_requires = ['termcolor', 'colorama'],
+    install_requires = ['termcolor', 'colorama', 'flask'],
     entry_points = {
         'console_scripts': [
             'scheduler-cli=scheduler.main:main_scheduler',
+            'scheduler-server=server.main:scheduler_server',
         ],
     },
 )
