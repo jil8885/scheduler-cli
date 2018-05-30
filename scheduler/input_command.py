@@ -3,7 +3,7 @@ from .make_string import make_string
 from termcolor import colored
 from pathlib import Path
 from colorama import init
-import sqlite3
+import sqlite3, requests
 
 
 def print_calendar(year, month):
@@ -262,6 +262,14 @@ def input_command(command):
             print(update_help_string)
             return 1
         conn.commit()
+    elif command[0] == 'pull':
+        address = input("please input ip address of server: ")
+        account = input("please input your account: ")
+        link = 'http://' + address + ':8865/pull/' + account
+        print(link)
+        response = requests.get(link).json
+        print(response)
+        print(response['account'])
     elif command[0] == 'exit':
         return 1
     elif command[0] == 'help':
