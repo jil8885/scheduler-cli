@@ -3,7 +3,7 @@ from .make_string import make_string
 from termcolor import colored
 from pathlib import Path
 from colorama import init
-import sqlite3, requests
+import sqlite3, requests, json
 
 
 def print_calendar(year, month):
@@ -266,10 +266,65 @@ def input_command(command):
         address = input("please input ip address of server: ")
         account = input("please input your account: ")
         link = 'http://' + address + ':8865/pull/' + account
-        print(link)
-        response = requests.get(link).json
-        print(response)
-        print(response['account'])
+        try:
+            response = requests.get(link)
+            received_json = json.loads(response.text)
+            print("Server Connected")
+            print("Loading")
+        except:
+            print("server error!")
+            return 1
+        result = received_json['result']
+        for x in result:
+            cur.execute(insert_data, x[1:])
+        conn.commit()
+        conn.close()
+    elif command[0] == 'push':
+        address = input("please input ip address of server: ")
+        account = input("please input your account: ")
+        link = 'http://' + address + ':8865/push/' + account
+        cur.execute(select_data_all)
+        result = cur.fetchall()
+        send_json = {'result': result}
+        try:
+            requests.post(link, json=send_json)
+            print("Server Connected")
+            print("Loading")
+        except:
+            print("server error!")
+            return 1
+        conn.close()
+    elif command[0] == 'sync':
+        address = input("please input ip address of server: ")
+        account = input("please input your account: ")
+        link = 'http://' + address + ':8865/push/' + account
+        cur.execute(select_data_all)
+        result = cur.fetchall()
+        send_json = {'result': result}
+        delete_db = 'delete from todo where what=? and month=? and day=?'
+        try:
+            requests.post(link, json=send_json)
+            print("Server Connected")
+            print("Loading")
+        except:
+            print("server error!")
+            return 1       
+        link = 'http://' + address + ':8865/pull/' + account
+        try:
+            response = requests.get(link)
+            received_json = json.loads(response.text)
+            print("Server Connected")
+            print("Loading")
+        except:
+            print("server error!")
+            return 1
+        result = received_json['result']
+        for x in result:
+            cur.execute(delete_db, (x[4], x[2], x[3]))
+            cur.execute(insert_data, x[1:])
+        print("Successfully sync from server.")
+        conn.commit()
+        conn.close()
     elif command[0] == 'exit':
         return 1
     elif command[0] == 'help':
