@@ -175,7 +175,13 @@ Example with state
 
 ::
 
+	sync
+	6. Pull schedule to server
+
+::
+
 	push
+	
 Changelog
 -----------
 
