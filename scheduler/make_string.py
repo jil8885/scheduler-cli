@@ -14,7 +14,7 @@ def make_string(schedule_list):
         string += 'No result found. To show all schedule, enter \"show all\"'
     for x in schedule_list:
         overdue = datetime(x[0], x[2], x[3]) - datetime.now()
-        if overdue.days < 0:
+        if overdue.days < 0 and x[5] == 0:
             a = 2
         else:
             a = x[5]
