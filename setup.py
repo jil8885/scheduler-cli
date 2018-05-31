@@ -14,7 +14,7 @@ with open(join(this_dir, 'README.rst')) as file:
 
 setup(
     name = 'scheduler_todo',
-    version = '0.0.7',
+    version = '0.0.8',
     description = 'A scheduler command line program in Python.',
     long_description = long_description,
     url = 'https://github.com/jil8885/scheduler-cli',
@@ -29,7 +29,7 @@ setup(
     ],
     keywords = ['cli','scheduler-cli'],
     packages = find_packages(exclude=['docs', 'tests*']),
-    install_requires = ['termcolor', 'colorama', 'flask'],
+    install_requires = ['termcolor', 'colorama', 'flask', 'requests'],
     entry_points = {
         'console_scripts': [
             'scheduler-cli=scheduler.main:main_scheduler',
