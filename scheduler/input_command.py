@@ -29,17 +29,17 @@ def input_command(command):
     # 전체 도움말
     title_string = "%-35s|%-36s|%-40s\n"%("function", "command", "example")
     add_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule with category", colored("add {due} {content} in {category}", 'yellow'), colored("add 3/2 go school in school", 'cyan'))
-    add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 3/2 go school", 'cyan'))
+    add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule with category", colored("add {due} {content} in {category}", 'yellow'), colored("add 2018/3/2 go school in school", 'cyan'))
+    add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 2018/3/2 go school", 'cyan'))
     delete_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     delete_help_string += "%-35s|%-45s|%-40s\n"%("delete all schedule", colored("delete all", 'yellow'), colored("delete all", 'cyan'))
     delete_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with index", colored("delete {index}", 'yellow'), colored("delete 3", 'cyan'))
     update_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     update_help_string += "%-35s|%-45s|%-40s\n"%("update state with index", colored("update {index} {done/undone}", 'yellow'), colored("update 3 done", 'cyan'))
-    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with index", colored("update {index} at {due}", 'yellow'), colored("update 3 at 7/1", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with index", colored("update {index} at {due}", 'yellow'), colored("update 3 at 2018/7/1", 'cyan'))
     update_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     update_help_string += "%-35s|%-45s|%-40s\n"%("update state with category", colored("update in {index} {done/undone}", 'yellow'), colored("update in school done", 'cyan'))
-    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with category", colored("update in {index} at {due}", 'yellow'), colored("update in school at 7/1", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with category", colored("update in {index} at {due}", 'yellow'), colored("update in school at 2018/7/1", 'cyan'))
     show_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule", colored("show all", 'yellow'), colored("show all", 'cyan'))
     show_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with index", colored("show {index}", 'yellow'), colored("show 3", 'cyan'))
@@ -51,19 +51,19 @@ def input_command(command):
     update_help_string = title_string + update_help_string
     delete_help_string = title_string + delete_help_string
     # 새 스케쥴 만드는 sql 구문
-    insert_data = 'insert into todo (category, month, day, what, done) values (?,?, ?, ?, ?)'
+    insert_data = 'insert into todo (category, year, month, day, what, done) values (?,?,?, ?, ?, ?)'
     # 모든 스케쥴 삭제 sql 구문
     delete_all_data = 'drop table todo'
     # id로 스케쥴 삭제 sql 구문
-    delete_data = 'delete from todo where id = ?'
+    delete_data = 'delete from todo where what = ?'
     # 모든 스케쥴 선택 sql 구문
-    select_data_all = 'select * from todo'
-    select_data_all_done = 'select * from todo where done = 1'
-    select_data_all_undone = 'select * from todo where done = 0'
+    select_data_all = 'select * from todo order by month, day'
+    select_data_all_done = 'select * from todo where done = 1 order by month, day'
+    select_data_all_undone = 'select * from todo where done = 0 order by month, day'
     # id로 스케쥴 선택 sql 구문
-    select_data = 'select * from todo where id=?'
-    select_data_done = 'select * from todo where id=? and  done = 1'
-    select_data_undone = 'select * from todo where id=? and  done = 1'
+    select_data = 'select * from todo where what=? order by month, day'
+    select_data_done = 'select * from todo where what=? and  done = 1 order by month, day'
+    select_data_undone = 'select * from todo where what=? and  done = 1 order by month, day'
     # 카테고리로 스케쥴 선택 sql 구문
     select_data_cat = 'select * from todo where category=?'
     select_data_cat_done = 'select * from todo where category=? and done = 1'
@@ -76,16 +76,16 @@ def input_command(command):
                  "August": 8, "august": 8, "Aug": 8, "aug": 8, "September": 9, "Sep": 9, "september": 9, "sep": 9, "October": 10, "Oct": 10,
                  "october": 10, "oct": 10, "November": 11, "Nov": 11, "november": 11, "nov": 11, "December": 12, "Dec": 12, "december": 12, "dec": 12}
     # id로 일정 업데이트 sql 구문
-    update_data_by_id = 'update todo set done = ? where id = ?'
-    update_data_by_id_due = 'update todo set month = ?, day = ? where id = ?'
+    update_data_by_id = 'update todo set done = ? where what = ?'
+    update_data_by_id_due = 'update todo set year = ?, month = ?, day = ? where what = ?'
     update_data_by_cat = 'update todo set done = ? where category = ?'
     update_data_by_cat_due = 'update todo set month = ?, day = ? where category = ?'
     if command[0] == 'add':
         if len(command) > 2:
             # 명령의 두번째 단어에 /가 없으면 날짜가 없는 것으로 간주하고, 추가하지 않는다.
-            if '/' in command[1]:
-                month, day = command[1].split('/')
-                if not valid_date(int(month), int(day)):
+            if '/' in command[1] and len(command[1].split('/')) == 3:
+                year, month, day = command[1].split('/')
+                if not valid_date(int(year), int(month), int(day)):
                     print("Date is not valid")
                     return 1
                 # in 키워드를 통해 어느 category에 넣을지 정할 수 있다.
@@ -112,7 +112,7 @@ def input_command(command):
                     category = "No category"
                 category = category.strip()
                 content = content.strip()
-                cur.execute(insert_data, (category, int(month), int(day), content, 0))
+                cur.execute(insert_data, (category, int(year), int(month), int(day), content, 0))
                 print('schedule ' + content + ' in ' + category + ' at ' + command[1])
                 conn.commit()
             # 명령어에 날짜가 없는 경우 다시 입력 받기
@@ -129,9 +129,9 @@ def input_command(command):
         # id로 스케쥴 찾아서 삭제
         else:
             try:
-                cur.execute(delete_data, (int(command[1]),))
+                cur.execute(delete_data, (command[1],))
                 conn.commit()
-                print(command[1], "위치의 일정이 제거되었습니다.")
+                print(command[1], " 일정이 제거되었습니다.")
             # id로 된 일정이 없으면 예외처리
             except:
                 print(delete_help_string.strip())
@@ -149,14 +149,6 @@ def input_command(command):
             print(make_string(result))
             cur.execute(select_data_all_done)
             done_length = len(cur.fetchall())
-        # id로 스케쥴 검색
-        elif command[1].isdigit():
-            cur.execute(select_data, (command[1],))
-            result = cur.fetchall()
-            all_length = len(result)
-            print(make_string(result))
-            cur.execute(select_data_done, (command[1], ))
-            done_length = len(cur.fetchall())
         # 카테고리로 스케쥴 검색
         elif command[1] == 'in':
             category = ''
@@ -169,6 +161,7 @@ def input_command(command):
             conn.commit()
             cur.execute(select_data_cat_done, (category.strip(), ))
             done_length = len(cur.fetchall())
+        # 날짜의 월로 검색
         elif command[1] == 'at':
             if command[2] in month_dic.keys():
                 cur.execute(select_data_mon, (month_dic[command[2]],))
@@ -179,14 +172,17 @@ def input_command(command):
                 done_length = len(cur.fetchall())
             else:
                 print("invalid month")
+        # 끝난 일정 검색
         elif command[1] == "done":
             cur.execute(select_data_all_done)
             result = cur.fetchall()
             print(make_string(result))
+        # 끝나지 못한 일정 검색
         elif command[1] == "undone":
             cur.execute(select_data_all_undone)
             result = cur.fetchall()
             print(make_string(result))
+        # 달력 보기 기능
         elif (command[1] == 'calender' or command[1] == 'cal') and len(command) == 3:
             if '/' in command[2] and command[2].split("/")[0].isdigit() and command[2].split("/")[1].isdigit():
                 if 70 < int(command[2].split("/")[0]) < 100:
@@ -198,39 +194,24 @@ def input_command(command):
                 print_calendar(year, int(command[2].split("/")[1]))
             else:
                 print(show_help_string.strip())
+        # 제목으로 검색 보기
         else:
-            print(show_help_string.strip())
+            try:
+                cur.execute(select_data, (command[1],))
+                result = cur.fetchall()
+                all_length = len(result)
+                print(make_string(result))
+                cur.execute(select_data_done, (command[1], ))
+                done_length = len(cur.fetchall())
+            except:
+                print(show_help_string)
+        # 완료한 비율 검색
         if all_length != 0:
             done_percent(all_length, done_length)
     # 일정을 끝났는지 안끝났는지 명령어
     elif command[0] == 'update':
-        # 두번째 키워드가 index이면,
-        if command[1].isdigit():
-            position = int(command[1])
-            try:
-                cur.execute(select_data, (position,))
-                result = cur.fetchall()
-            except:
-                print('no schedule found')
-                return 1
-            if command[2] == 'done':
-                print('index:', position, '\'s state is changed to done')
-                cur.execute(update_data_by_id, (1, position,))
-                conn.commit()
-            elif command[2] == 'undone':
-                print('index:', position, '\'s state is changed to undone')
-                cur.execute(update_data_by_id, (0, position,))
-                conn.commit()
-            elif command[2] == 'at' and len(command) == 4 and '/' in command[3]:
-                month, day = command[3].split('/')
-                if not valid_date(int(month), int(day)):
-                    print("Date is not valid")
-                    return 1
-                print('index:', position, '\'s due is changed to ' + command[3])
-                cur.execute(update_data_by_id_due, (int(month), int(day), position,))
-                conn.commit()
         # 두번째 키워드가 category이면,
-        elif command[1] == 'in' and len(command) > 3:
+        if command[1] == 'in' and len(command) > 3:
             category = ''
             for x in category[2:]:
                 category += x + ' '
@@ -247,20 +228,39 @@ def input_command(command):
                 print('schedule in :', category, '\'s state is changed to undone')
                 cur.execute(update_data_by_id, (0, category,))
                 conn.commit()
-            elif command[3] == 'at' and len(command) == 5 and '/' in command[4]:
-                month, day = command[4].split('/')
-                if not valid_date(int(month), int(day)):
+            elif command[3] == 'at' and len(command) == 5 and len(command[4].split('/')) == 3:
+                year, month, day = command[4].split('/')
+                if not valid_date(int(year), int(month), int(day)):
                     print("Date is not valid")
                     return 1
                 print('schedule in :', category, '\'s due is changed to ' + command[4])
-                cur.execute(update_data_by_cat_due, (int(month), int(day), category,))
+                cur.execute(update_data_by_cat_due, (int(year), int(month), int(day), category,))
                 conn.commit()
-            else:
-                print(update_help_string)
-        # 아니면 update 도움말을 출력하도록 설정
+        # 이외 사항이면 제목으로 검색
         else:
-            print(update_help_string)
-            return 1
+            position = command[1]
+            try:
+                cur.execute(select_data, (position,))
+                result = cur.fetchall()
+            except:
+                print('no schedule found')
+                return 1
+            if command[2] == 'done':
+                print('index:', position, '\'s state is changed to done')
+                cur.execute(update_data_by_id, (1, position,))
+                conn.commit()
+            elif command[2] == 'undone':
+                print('index:', position, '\'s state is changed to undone')
+                cur.execute(update_data_by_id, (0, position,))
+                conn.commit()
+            elif command[2] == 'at' and len(command) == 4 and '/' in command[3]:
+                month, day = command[3].split('/')
+                if not valid_date(int(year), int(month), int(day)):
+                    print("Date is not valid")
+                    return 1
+                print('index:', position, '\'s due is changed to ' + command[3])
+                cur.execute(update_data_by_id_due, (int(month), int(day), position,))
+                conn.commit()
         conn.commit()
     elif command[0] == 'pull':
         address = input("please input ip address of server: ")
@@ -285,6 +285,7 @@ def input_command(command):
         link = 'http://' + address + ':8865/push/' + account
         cur.execute(select_data_all)
         result = cur.fetchall()
+        print(result)
         send_json = {'result': result}
         try:
             requests.post(link, json=send_json)

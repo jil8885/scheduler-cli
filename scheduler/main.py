@@ -13,7 +13,7 @@ def main_scheduler():
     conn = sqlite3.connect(home_dir + "/scheduler.db")
     cur = conn.cursor()
     # table 만드는 sql 구문
-    create_table = 'create table if not exists todo(id integer primary key autoincrement, category text not null, month integer not null, day integer not null, what text not null, done integer)'
+    create_table = 'create table if not exists todo(year integer not null, category text not null, month integer not null, day integer not null, what text not null, done integer)'
     # 처음에 해당 테이블이 없을 때 테이블 생성 구문
     cur.execute(create_table)
     # 각종 도움말 메세지 문자열
