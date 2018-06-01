@@ -1,0 +1,17 @@
+fdbdbb32114e0aebf75785093cd96296  usr/bin/scheduler-cli
+0cf6425b6ce1be9690b54e2352845508  usr/bin/scheduler-server
+c28d3a577872a22fbefeded9c2b62759  usr/lib/python3/dist-packages/scheduler/__init__.py
+8cf0cef723e1e55b88e77e735478c489  usr/lib/python3/dist-packages/scheduler/__main__.py
+8e3260a78bc7efb9cd194a0960e64757  usr/lib/python3/dist-packages/scheduler/input_command.py
+7e718b57bf6a51409f7d57aa6f144dfb  usr/lib/python3/dist-packages/scheduler/main.py
+919a4d3d9e6b089bde394903f2a55104  usr/lib/python3/dist-packages/scheduler/make_string.py
+330db6f4b8dc8a173b0cff97682706a6  usr/lib/python3/dist-packages/scheduler/valid_date.py
+1f58034e028f39bcdef4bfd36e9aea2d  usr/lib/python3/dist-packages/scheduler_todo-0.0.9.egg-info/PKG-INFO
+68b329da9893e34099c7d8ad5cb9c940  usr/lib/python3/dist-packages/scheduler_todo-0.0.9.egg-info/dependency_links.txt
+890070d481149b86ebee3f976dcec3c1  usr/lib/python3/dist-packages/scheduler_todo-0.0.9.egg-info/entry_points.txt
+d41d8cd98f00b204e9800998ecf8427e  usr/lib/python3/dist-packages/scheduler_todo-0.0.9.egg-info/requires.txt
+c0f61c55e4ee667109cffda7799f5503  usr/lib/python3/dist-packages/scheduler_todo-0.0.9.egg-info/top_level.txt
+c28d3a577872a22fbefeded9c2b62759  usr/lib/python3/dist-packages/server/__init__.py
+dd06aaf6d2b0385ee2b8eb849a828dc0  usr/lib/python3/dist-packages/server/__main__.py
+a0919913c16416f5e7e8766f45ec90d2  usr/lib/python3/dist-packages/server/main.py
+1169d345b9920e232c65bfc0eac1a135  usr/share/doc/python3-scheduler-todo/changelog.Debian.gz
