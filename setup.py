@@ -14,7 +14,7 @@ with open(join(this_dir, 'README.rst')) as file:
 
 setup(
     name = 'scheduler_todo',
-    version = '0.0.8',
+    version = '0.0.9',
     description = 'A scheduler command line program in Python.',
     long_description = long_description,
     url = 'https://github.com/jil8885/scheduler-cli',
