@@ -1,0 +1,36 @@
+Source: scheduler-todo
+Maintainer: Jeongin Lee <jil8885@hanynag.ac.kr>
+Section: python
+Priority: optional
+Build-Depends: python3-setuptools, python3-all, debhelper (>= 7.4.3)
+Standards-Version: 3.9.1
+
+
+
+
+
+Package: python3-scheduler-todo
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: A scheduler command line program in Python.
+ Scheduler-cli tool
+ ================================
+ Intro
+ -----
+ Scheduler for Python
+ .
+ Installation
+ -----------------
+ .
+ ::
+ .
+ 	pip install scheduler-todo
+ .
+ Usage
+ -----------------
+ .
+ 1. Add schedule
+ -------------------------------
+ .
+ ::
+

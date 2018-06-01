@@ -1,0 +1,30 @@
+Package: python3-scheduler-todo
+Source: scheduler-todo
+Version: 0.0.9-1
+Architecture: all
+Maintainer: Jeongin Lee <jil8885@hanynag.ac.kr>
+Installed-Size: 54
+Depends: python3-colorama, python3-flask, python3-requests, python3-termcolor, python3:any (>= 3.3.2-2~)
+Section: python
+Priority: optional
+Description: A scheduler command line program in Python.
+ Scheduler-cli tool
+ ================================
+ Intro
+ -----
+ Scheduler for Python
+ .
+ Installation
+ -----------------
+ .
+ ::
+ .
+ 	pip install scheduler-todo
+ .
+ Usage
+ -----------------
+ .
+ 1. Add schedule
+ -------------------------------
+ .
+ ::
