@@ -4,7 +4,7 @@ from termcolor import colored
 from pathlib import Path
 from colorama import init
 import sqlite3, requests, json
-
+from . import __version__
 
 def print_calendar(year, month):
     import calendar
@@ -330,6 +330,8 @@ def input_command(command):
         return 1
     elif command[0] == 'help':
         print(full_help_string.strip())
+    elif command[0] == 'version':
+        print(__version__)
     else:
         print('To get more info, plz input command \'help\'')
     conn.close()
