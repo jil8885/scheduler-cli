@@ -53,7 +53,7 @@ def input_command(command):
     # 새 스케쥴 만드는 sql 구문
     insert_data = 'insert into todo (category, year, month, day, what, done) values (?,?,?, ?, ?, ?)'
     # 모든 스케쥴 삭제 sql 구문
-    delete_all_data = 'drop table todo'
+    delete_all_data = 'delete from todo'
     # id로 스케쥴 삭제 sql 구문
     delete_data = 'delete from todo where what = ?'
     # 모든 스케쥴 선택 sql 구문
