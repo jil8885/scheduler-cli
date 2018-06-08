@@ -54,8 +54,10 @@ def input_command(command):
     insert_data = 'insert into todo (category, year, month, day, what, done) values (?,?,?, ?, ?, ?)'
     # 모든 스케쥴 삭제 sql 구문
     delete_all_data = 'delete from todo'
-    # id로 스케쥴 삭제 sql 구문
+    # 내용으로 스케쥴 삭제 sql 구문
     delete_data = 'delete from todo where what = ?'
+    # 분류로 스케쥴 삭제 sql 구문
+    delete_data_cat = 'delete from todo where category = ?'
     # 모든 스케쥴 선택 sql 구문
     select_data_all = 'select * from todo order by year, month, day'
     select_data_all_done = 'select * from todo where done = 1 order by year,month, day'
@@ -63,11 +65,9 @@ def input_command(command):
     # id로 스케쥴 선택 sql 구문
     select_data = 'select * from todo where what=? order by year, month, day'
     select_data_done = 'select * from todo where what=? and  done = 1 order by year,month, day'
-    select_data_undone = 'select * from todo where what=? and  done = 1 order by year,month, day'
     # 카테고리로 스케쥴 선택 sql 구문
     select_data_cat = 'select * from todo where category=?'
     select_data_cat_done = 'select * from todo where category=? and done = 1'
-    select_data_cat_undone = 'select * from todo where category=? and done = 0'
     # 월별로 스케쥴 선택 sql 구문
     select_data_mon = 'select * from todo where month=?'
     select_data_mon_done = 'select * from todo where month=? and done = 1'
@@ -129,6 +129,19 @@ def input_command(command):
         if command[1] == 'all':
             cur.execute(delete_all_data)
             conn.commit()
+        # 카테고리로 스케쥴 찾아서 삭제:
+        elif command[1] == 'in':
+            string = ''
+            command_list = command[2:]
+            for x in command_list:
+                string += x + ' '
+            string = string.strip()
+            try:
+                cur.execute(delete_data_cat, (string,))
+                conn.commit()
+                print(string, "분류의 일정이 제거되었습니다.")
+            except:
+                print(delete_help_string.strip())
         # id로 스케쥴 찾아서 삭제
         else:
             try:
