@@ -37,6 +37,6 @@ script:
   - scheduler-cli show all
   - scheduler-cli update in cat1 at 2018/7/1
   - scheduler-cli show all
-  - scheduler-cli show hit hoesung
+  - scheduler-cli show hit hoesung2
   - scheduler-cli show in cat1
   - scheduler-cli show at july

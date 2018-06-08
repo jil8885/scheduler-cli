@@ -251,7 +251,7 @@ def input_command(command):
                 if not result:
                     print('no schedule found')
                     return 1
-                year, month, day = command[4].split('/')
+                year, month, day = command[-1].split('/')
                 if not valid_date(int(year), int(month), int(day)):
                     print("Date is not valid")
                     return 1
@@ -297,9 +297,9 @@ def input_command(command):
                 print('content:', position, '\'s state is changed to undone')
                 cur.execute(update_data_by_id, (0, position,))
                 conn.commit()
-            elif command[-2] == 'at' and len(command) == 4 and '/' in command[-1]:
+            elif command[-2] == 'at' and len(command[-1].split('/')) == 3:
                 try:
-                    year, month, day = command[3].split('/')
+                    year, month, day = command[-1].split('/')
                 except:
                     print("Date is not valid")
                     return 1
