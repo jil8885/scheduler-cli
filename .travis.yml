@@ -1,10 +1,5 @@
 sudo: false
 language: python
-addons:
-  apt:
-    packages:
-    - gcc-multilib
-    - gcc-4.6-arm-linux-gnueabihf
 cache:
     - pip
     - directories:
@@ -23,5 +18,5 @@ python:
   - "3.5"
   - "3.6"
 install:
-  - python setup.py install
-  - pip install -r docs/requirements.txt
+  - pip install -e .
+  - pip install -r requirements.txt
