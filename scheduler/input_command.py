@@ -220,8 +220,8 @@ def input_command(command):
     elif command[0] == 'update':
         # 두번째 키워드가 category이면,
         if command[1] == 'in' and len(command) > 3:
+            category = ''
             if command[-1] == 'done':
-                category = ''
                 for x in category[2:-1]:
                     category += x + ' '
                 cur.execute(select_data_cat, (category.strip(),))
