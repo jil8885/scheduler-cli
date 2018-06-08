@@ -39,4 +39,4 @@ script:
   - scheduler-cli show all
   - scheduler-cli show hit hoesung
   - scheduler-cli show in cat1
-  - scheduler-cli show in july
+  - scheduler-cli show at july

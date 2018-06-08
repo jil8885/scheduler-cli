@@ -220,23 +220,37 @@ def input_command(command):
     elif command[0] == 'update':
         # 두번째 키워드가 category이면,
         if command[1] == 'in' and len(command) > 3:
-            category = ''
-            for x in category[2:]:
-                category += x + ' '
-            cur.execute(select_data_cat, (category.strip(),))
-            result = cur.fetchall()
-            if not result:
-                print('no schedule found')
-                return 1
-            if command[3] == 'done':
+            if command[-1] == 'done':
+                category = ''
+                for x in category[2:-1]:
+                    category += x + ' '
+                cur.execute(select_data_cat, (category.strip(),))
+                result = cur.fetchall()
+                if not result:
+                    print('no schedule found')
+                    return 1                
                 print('schedule in :', category, '\'s state is changed to done')
                 cur.execute(update_data_by_cat, (1, category,))
                 conn.commit()
-            elif command[3] == 'undone':
+            elif command[-1] == 'undone':
+                for x in category[2:-1]:
+                    category += x + ' '
+                cur.execute(select_data_cat, (category.strip(),))
+                result = cur.fetchall()
+                if not result:
+                    print('no schedule found')
+                    return 1 
                 print('schedule in :', category, '\'s state is changed to undone')
                 cur.execute(update_data_by_id, (0, category,))
                 conn.commit()
-            elif command[3] == 'at' and len(command) == 5 and len(command[4].split('/')) == 3:
+            elif command[-2] == 'at' and len(command[-1].split('/')) == 3:
+                for x in category[2:-2]:
+                    category += x + ' '
+                cur.execute(select_data_cat, (category.strip(),))
+                result = cur.fetchall()
+                if not result:
+                    print('no schedule found')
+                    return 1
                 year, month, day = command[4].split('/')
                 if not valid_date(int(year), int(month), int(day)):
                     print("Date is not valid")
@@ -244,6 +258,9 @@ def input_command(command):
                 print('schedule in :', category, '\'s due is changed to ' + command[4])
                 cur.execute(update_data_by_cat_due, (int(year), int(month), int(day), category,))
                 conn.commit()
+            else:
+                print(update_help_string)
+                return 1
         elif command[1] == 'help':
             print(update_help_string)
         # 이외 사항이면 제목으로 검색
@@ -268,12 +285,16 @@ def input_command(command):
                 print('content:', position, '\'s state is changed to undone')
                 cur.execute(update_data_by_id, (0, position,))
                 conn.commit()
-            elif command[2] == 'at' and len(command) == 4 and '/' in command[3]:
-                year, month, day = command[3].split('/')
+            elif command[-2] == 'at' and len(command) == 4 and '/' in command[-1]:
+                try:
+                    year, month, day = command[3].split('/')
+                except:
+                    print("Date is not valid")
+                    return 1
                 if not valid_date(int(year), int(month), int(day)):
                     print("Date is not valid")
                     return 1
-                print('content:', position, '\'s due is changed to ' + command[3])
+                print('content:', position, '\'s due is changed to ' + command[-1])
                 cur.execute(update_data_by_id_due, (int(year), int(month), int(day), position,))
                 conn.commit()
             conn.commit()
