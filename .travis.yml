@@ -29,6 +29,9 @@ script:
   - scheduler-cli update hit hoesung2 done
   - scheduler-cli show all
   - scheduler-cli update hit hoesung2 at 2018/7/1
+  - scheduler-cli add 2019/03/02 hit hoesung1 in cat1
+  - scheduler-cli add 2019/04/02 hit hoesung2 in cat2
+  - scheduler-cli add 2019/05/02 hit hoesung3 in cat3
   - scheduler-cli show all
   - scheduler-cli update in cat1 done
   - scheduler-cli show all
