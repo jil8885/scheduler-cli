@@ -204,12 +204,17 @@ def input_command(command):
                 print(show_help_string.strip())
         # 제목으로 검색 보기
         else:
+            content_list = command[1:]
+            content = ''
+            for x in content_list:
+                content += x + ' '
+            content = content.strip()
             try:
-                cur.execute(select_data, (command[1],))
+                cur.execute(select_data, (content,))
                 result = cur.fetchall()
                 all_length = len(result)
                 print(make_string(result))
-                cur.execute(select_data_done, (command[1], ))
+                cur.execute(select_data_done, (content, ))
                 done_length = len(cur.fetchall())
             except:
                 print(show_help_string)
@@ -224,6 +229,8 @@ def input_command(command):
             if command[-1] == 'done':
                 for x in category[2:-1]:
                     category += x + ' '
+                if category == '':
+                    category = command[-2]
                 cur.execute(select_data_cat, (category.strip(),))
                 result = cur.fetchall()
                 if not result:
@@ -235,6 +242,8 @@ def input_command(command):
             elif command[-1] == 'undone':
                 for x in category[2:-1]:
                     category += x + ' '
+                if category == '':
+                    category = command[-2]                    
                 cur.execute(select_data_cat, (category.strip(),))
                 result = cur.fetchall()
                 if not result:
@@ -246,6 +255,8 @@ def input_command(command):
             elif command[-2] == 'at' and len(command[-1].split('/')) == 3:
                 for x in category[2:-2]:
                     category += x + ' '
+                if category == '':
+                    category = command[-3]                
                 cur.execute(select_data_cat, (category.strip(),))
                 result = cur.fetchall()
                 if not result:
