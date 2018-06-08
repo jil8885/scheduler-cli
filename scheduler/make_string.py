@@ -27,7 +27,11 @@ def make_string(schedule_list):
             day = str(x[3])
         else:
             day = '0' + str(x[3])
+        if x[2] > 9:
+            month = str(x[2])
+        else:
+            month = '0' + str(x[2])
         date = datetime(x[0], x[2], x[3]).weekday()
         weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
-        string += '%-16s |%-22s |%-14s |%-20s|%-10s\n'%(str(x[0]) +'/' + str(x[2]) + '/' + day + '(' + weekdays[date] + ')' , x[4], x[1], colored(done[a], color[a]), dday)
+        string += '%-16s |%-22s |%-14s |%-20s|%-10s\n'%(str(x[0]) +'/' + month + '/' + day + '(' + weekdays[date] + ')' , x[4], x[1], colored(done[a], color[a]), dday)
     return string.strip()
