@@ -79,7 +79,7 @@ def input_command(command):
     update_data_by_id = 'update todo set done = ? where what = ?'
     update_data_by_id_due = 'update todo set year = ?, month = ?, day = ? where what = ?'
     update_data_by_cat = 'update todo set done = ? where category = ?'
-    update_data_by_cat_due = 'update todo set month = ?, day = ? where category = ?'
+    update_data_by_cat_due = 'update todo set year = ?, month = ?, day = ? where category = ?'
     if command[0] == 'add':
         if len(command) > 2:
             # 명령의 두번째 단어에 /가 없으면 날짜가 없는 것으로 간주하고, 추가하지 않는다.
