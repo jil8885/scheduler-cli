@@ -22,10 +22,9 @@ setup(
     author_email = 'jil8885@hanynag.ac.kr',
     license = 'MIT LICENSE',
     classifiers = [
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     keywords = ['cli','scheduler-cli'],
     packages = find_packages(exclude=['docs', 'tests*']),
