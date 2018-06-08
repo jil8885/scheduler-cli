@@ -1,0 +1,27 @@
+sudo: false
+language: python
+addons:
+  apt:
+    packages:
+    - gcc-multilib
+    - gcc-4.6-arm-linux-gnueabihf
+cache:
+    - pip
+    - directories:
+        - usr
+        - /home/travis/virtualenv/python3.3.5/lib/python3.3/site-packages/
+        - /home/travis/virtualenv/python3.3.5/bin/
+        - /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages/
+        - /home/travis/virtualenv/python3.4.2/bin/
+        - /home/travis/virtualenv/python3.5.0/lib/python3.5/site-packages/
+        - /home/travis/virtualenv/python3.5.0/bin/
+python:
+# Sphinx requires at least Python 3.4 to run.
+#  - "3.2"
+#  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+install:
+  - python setup.py install
+  - pip install -r docs/requirements.txt
