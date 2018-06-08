@@ -36,7 +36,7 @@ def main_scheduler():
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule", colored("show all", 'yellow'), colored("show all", 'cyan'))
     show_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with index", colored("show {content}", 'yellow'), colored("show hit hoesung", 'cyan'))
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule in category", colored("show in {category}", 'yellow'), colored("show in school", 'cyan'))
-    show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule at month", colored("show in {month}", 'yellow'), colored("show at july", 'cyan'))
+    show_help_string += "%-35s|%-45s|%-40s\n"%("get all calender at specific month", colored("show cal {year/month}", 'yellow'), colored("show cal 2018/03", 'cyan'))
     full_help_string = title_string + add_help_string + delete_help_string + update_help_string + show_help_string
     add_help_string = title_string + add_help_string
     show_help_string = title_string + show_help_string
