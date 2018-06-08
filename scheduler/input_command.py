@@ -33,6 +33,7 @@ def input_command(command):
     add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 2018/3/2 go school", 'cyan'))
     delete_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     delete_help_string += "%-35s|%-45s|%-40s\n"%("delete all schedule", colored("delete all", 'yellow'), colored("delete all", 'cyan'))
+    delete_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with category", colored("delete in {category}", 'yellow'), colored("delete in hoesung", 'cyan'))
     delete_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with index", colored("delete {content}", 'yellow'), colored("delete hit hoesung", 'cyan'))
     update_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     update_help_string += "%-35s|%-45s|%-40s\n"%("update state with index", colored("update {content} {done/undone}", 'yellow'), colored("update hit hoesung done", 'cyan'))
