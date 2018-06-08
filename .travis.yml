@@ -19,3 +19,6 @@ python:
   - "3.6"
 install:
   - pip install -e .
+
+script:
+  - scheduler-cli
