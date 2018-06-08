@@ -265,18 +265,30 @@ def input_command(command):
             print(update_help_string)
         # 이외 사항이면 제목으로 검색
         else:
-            content = ''
-            position = command[1:-1]
-            for x in position:
-                content += x + ' '
-            position = content.strip()
-            print(position)
-            try:
-                cur.execute(select_data, (position,))
-                result = cur.fetchall()
-            except:
-                print('no schedule found')
-                return 1
+            if command[-1] in ['done', 'undone']:
+                content = ''
+                position = command[1:-1]
+                for x in position:
+                    content += x + ' '
+                position = content.strip()
+                try:
+                    cur.execute(select_data, (position,))
+                    result = cur.fetchall()
+                except:
+                    print('no schedule found')
+                    return 1
+            elif command[-2] == 'at':
+                content = ''
+                position = command[1:-2]
+                for x in position:
+                    content += x + ' '
+                position = content.strip()
+                try:
+                    cur.execute(select_data, (position,))
+                    result = cur.fetchall()
+                except:
+                    print('no schedule found')
+                    return 1                
             if command[-1] == 'done':
                 print('content:', position, '\'s state is changed to done')
                 cur.execute(update_data_by_id, (1, position,))
