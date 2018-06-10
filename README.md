@@ -56,3 +56,9 @@ show schedules
 
 
 
+update from the server
+------------------------
+
+	pull schedule from server       - pull
+	push schedule to server         - push
+	sync schedule with server	- sync
