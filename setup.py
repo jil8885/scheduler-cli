@@ -27,7 +27,7 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     keywords = ['cli','scheduler-cli'],
-    packages = find_packages(exclude=['docs', 'tests*']),
+    packages = find_packages(),
     install_requires = ['termcolor', 'colorama', 'flask', 'requests'],
     entry_points = {
         'console_scripts': [
