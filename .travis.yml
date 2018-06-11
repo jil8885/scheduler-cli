@@ -7,6 +7,8 @@ install:
   - pip install -e .
 
 script:
+  - scheduler-cli version
+  - scheduler-server version
   - scheduler-cli add 2019/03/02 hit hoesung in cat1
   - scheduler-cli add 2019/04/02 hit hoesung in cat2
   - scheduler-cli add 2019/05/02 hit hoesung in cat2
