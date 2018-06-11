@@ -28,7 +28,7 @@ setup(
     ],
     keywords = ['cli','scheduler-cli'],
     packages = find_packages(),
-    install_requires = ['termcolor', 'colorama', 'flask', 'requests'],
+    install_requires = ['termcolor', 'colorama', 'flask', 'requests','websocket-client','slacker'],
     entry_points = {
         'console_scripts': [
             'scheduler-cli=scheduler.main:main_scheduler',
