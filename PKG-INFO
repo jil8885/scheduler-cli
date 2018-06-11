@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
-Name: scheduler_todo
-Version: 0.0.9
+Name: scheduler-todo
+Version: 0.0.14
 Summary: A scheduler command line program in Python.
 Home-page: https://github.com/jil8885/scheduler-cli
 Author: Jeongin Lee
@@ -14,10 +14,20 @@ Description: Scheduler-cli tool
         
         Installation
         -----------------
-        
+        As a Python Module
         ::
         
         	pip install scheduler-todo
+        
+        As a Debian Package
+        ::
+        
+        	sudo dpkg -i <file name>.deb
+        
+        As a RedHat Package
+        ::
+        
+        	rpm -Uvh <file name>.rpm
         
         Usage
         -----------------
@@ -33,13 +43,13 @@ Description: Scheduler-cli tool
         
         ::
         
-        	add 3/2 hit hoesung in school
+        	add 2018/3/2 hit hoesung in school
         
         Example without category
         
         ::
         
-        	add 3/2 hit hoesung
+        	add 2018/3/2 hit hoesung
         
         
         2. Delete schedule
@@ -51,7 +61,7 @@ Description: Scheduler-cli tool
         
         ::
         
-        	delete {index}
+        	delete {content}
         
         ::
         
@@ -61,11 +71,11 @@ Description: Scheduler-cli tool
         
         	delete done/undone
         
-        Example with index
+        Example with content
         
         ::
         
-        	delete 3
+        	delete hit hoesung
         
         Example with category
         
@@ -86,24 +96,24 @@ Description: Scheduler-cli tool
         
         ::
         
-        	update {index} {done/undone}
+        	update {content} {done/undone}
         
         ::
         
-        	update {index} at {date to modify}
+        	update {content} at {date to modify}
         
         
-        Example with index to modify done/undone
-        
-        ::
-        
-        	update 3 done
-        
-        Example with index to modify date
+        Example with content to modify done/undone
         
         ::
         
-        	update 3 at 5/31
+        	update hit hoesung done
+        
+        Example with content to modify date
+        
+        ::
+        
+        	update hit hoesung at 5/31
         
         Example with category to modify done/undone
         
@@ -124,7 +134,7 @@ Description: Scheduler-cli tool
         
         ::
         
-        	show {index}
+        	show {content}
         
         ::
         
@@ -144,11 +154,11 @@ Description: Scheduler-cli tool
         
         	show all
         
-        Example with index
+        Example with content
         
         ::
         
-        	show 3
+        	show hit hoesung
         
         Example with category
         
@@ -192,12 +202,12 @@ Description: Scheduler-cli tool
         Changelog
         -----------
         
-        - v0.1 : Beta Version
-        - v0.2 : add calender func and fix input bugs
-        - v0.7 : add func to sync server
+        - v0.0.1 : Beta Version
+        - v0.0.2 : add calender func and fix input bugs
+        - v0.0.7 : add func to sync server
+        - v0.1.0 : Last Pre-release
 Keywords: cli,scheduler-cli
 Platform: UNKNOWN
-Classifier: Programming Language :: Python :: 3
-Classifier: Programming Language :: Python :: 3.2
-Classifier: Programming Language :: Python :: 3.3
 Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6

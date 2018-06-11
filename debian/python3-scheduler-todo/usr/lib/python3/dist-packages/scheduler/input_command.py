@@ -33,16 +33,16 @@ def input_command(command):
     add_help_string += "%-35s|%-45s|%-40s\n"%("add schedule without category", colored("add {due} {content}", 'yellow'), colored("add 2018/3/2 go school", 'cyan'))
     delete_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     delete_help_string += "%-35s|%-45s|%-40s\n"%("delete all schedule", colored("delete all", 'yellow'), colored("delete all", 'cyan'))
-    delete_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with index", colored("delete {index}", 'yellow'), colored("delete 3", 'cyan'))
+    delete_help_string += "%-35s|%-45s|%-40s\n"%("delete schedule with content", colored("delete {content}", 'yellow'), colored("delete 3", 'cyan'))
     update_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    update_help_string += "%-35s|%-45s|%-40s\n"%("update state with index", colored("update {index} {done/undone}", 'yellow'), colored("update 3 done", 'cyan'))
-    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with index", colored("update {index} at {due}", 'yellow'), colored("update 3 at 2018/7/1", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update state with content", colored("update {content} {done/undone}", 'yellow'), colored("update 3 done", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with content", colored("update {content} at {due}", 'yellow'), colored("update 3 at 2018/7/1", 'cyan'))
     update_help_string += ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
-    update_help_string += "%-35s|%-45s|%-40s\n"%("update state with category", colored("update in {index} {done/undone}", 'yellow'), colored("update in school done", 'cyan'))
-    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with category", colored("update in {index} at {due}", 'yellow'), colored("update in school at 2018/7/1", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update state with category", colored("update in {content} {done/undone}", 'yellow'), colored("update in school done", 'cyan'))
+    update_help_string += "%-35s|%-45s|%-40s\n"%("update due date with category", colored("update in {content} at {due}", 'yellow'), colored("update in school at 2018/7/1", 'cyan'))
     show_help_string = ("-" * 35 + '+') + ("-" * 36 + '+') + ("-" * 30 + '+') + '\n'
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule", colored("show all", 'yellow'), colored("show all", 'cyan'))
-    show_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with index", colored("show {index}", 'yellow'), colored("show 3", 'cyan'))
+    show_help_string += "%-35s|%-45s|%-40s\n"%("get schedule with content", colored("show {content}", 'yellow'), colored("show 3", 'cyan'))
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule in category", colored("show in {category}", 'yellow'), colored("show in school", 'cyan'))
     show_help_string += "%-35s|%-45s|%-40s\n"%("get all schedule at month", colored("show in {month}", 'yellow'), colored("show at july", 'cyan'))
     full_help_string = title_string + add_help_string + delete_help_string + update_help_string + show_help_string
@@ -90,7 +90,7 @@ def input_command(command):
                     return 1
                 # in 키워드를 통해 어느 category에 넣을지 정할 수 있다.
                 if 'in' in command:
-                    category_split = command.index('in')
+                    category_split = command.content('in')
                     category_list = command[category_split + 1:]
                     content_list = command[2:category_split]
                 # in 키워드가 없으면 no category 처리한다.
@@ -246,11 +246,11 @@ def input_command(command):
                 print('no schedule found')
                 return 1
             if command[2] == 'done':
-                print('index:', position, '\'s state is changed to done')
+                print('content:', position, '\'s state is changed to done')
                 cur.execute(update_data_by_id, (1, position,))
                 conn.commit()
             elif command[2] == 'undone':
-                print('index:', position, '\'s state is changed to undone')
+                print('content:', position, '\'s state is changed to undone')
                 cur.execute(update_data_by_id, (0, position,))
                 conn.commit()
             elif command[2] == 'at' and len(command) == 4 and '/' in command[3]:
@@ -258,7 +258,7 @@ def input_command(command):
                 if not valid_date(int(year), int(month), int(day)):
                     print("Date is not valid")
                     return 1
-                print('index:', position, '\'s due is changed to ' + command[3])
+                print('content:', position, '\'s due is changed to ' + command[3])
                 cur.execute(update_data_by_id_due, (int(month), int(day), position,))
                 conn.commit()
         conn.commit()

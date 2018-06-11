@@ -1,7 +1,7 @@
 %define name scheduler_todo
-%define version 0.0.9
-%define unmangled_version 0.0.9
-%define unmangled_version 0.0.9
+%define version 0.0.14
+%define unmangled_version 0.0.14
+%define unmangled_version 0.0.14
 %define release 1
 
 Summary: A scheduler command line program in Python.
@@ -26,10 +26,20 @@ Scheduler for Python
 
 Installation
 -----------------
-
+As a Python Module
 ::
 
 	pip install scheduler-todo
+
+As a Debian Package
+::
+
+	sudo dpkg -i <file name>.deb
+
+As a RedHat Package
+::
+
+	rpm -Uvh <file name>.rpm
 
 Usage
 -----------------
@@ -45,13 +55,13 @@ Example
 
 ::
 
-	add 3/2 hit hoesung in school
+	add 2018/3/2 hit hoesung in school
 
 Example without category
 
 ::
 
-	add 3/2 hit hoesung
+	add 2018/3/2 hit hoesung
 
 
 2. Delete schedule
@@ -63,7 +73,7 @@ Example without category
 
 ::
 
-	delete {index}
+	delete {content}
 
 ::
 
@@ -73,11 +83,11 @@ Example without category
 
 	delete done/undone
 
-Example with index
+Example with content
 
 ::
 
-	delete 3
+	delete hit hoesung
 
 Example with category
 
@@ -98,24 +108,24 @@ Example with state
 
 ::
 
-	update {index} {done/undone}
+	update {content} {done/undone}
 
 ::
 
-	update {index} at {date to modify}
+	update {content} at {date to modify}
 
 
-Example with index to modify done/undone
-
-::
-
-	update 3 done
-
-Example with index to modify date
+Example with content to modify done/undone
 
 ::
 
-	update 3 at 5/31
+	update hit hoesung done
+
+Example with content to modify date
+
+::
+
+	update hit hoesung at 5/31
 
 Example with category to modify done/undone
 
@@ -136,7 +146,7 @@ Example with category to modify date
 
 ::
 
-	show {index}
+	show {content}
 
 ::
 
@@ -156,11 +166,11 @@ Example with showing all schedule
 
 	show all
 
-Example with index
+Example with content
 
 ::
 
-	show 3
+	show hit hoesung
 
 Example with category
 
@@ -204,9 +214,10 @@ Example with state
 Changelog
 -----------
 
-- v0.1 : Beta Version
-- v0.2 : add calender func and fix input bugs
-- v0.7 : add func to sync server
+- v0.0.1 : Beta Version
+- v0.0.2 : add calender func and fix input bugs
+- v0.0.7 : add func to sync server
+- v0.1.0 : Last Pre-release
 
 %prep
 %setup -n %{name}-%{unmangled_version} -n %{name}-%{unmangled_version}

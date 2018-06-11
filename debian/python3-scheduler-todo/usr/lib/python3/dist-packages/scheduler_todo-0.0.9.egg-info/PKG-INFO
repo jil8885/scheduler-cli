@@ -51,7 +51,7 @@ Description: Scheduler-cli tool
         
         ::
         
-        	delete {index}
+        	delete {content}
         
         ::
         
@@ -61,7 +61,7 @@ Description: Scheduler-cli tool
         
         	delete done/undone
         
-        Example with index
+        Example with content
         
         ::
         
@@ -86,20 +86,20 @@ Description: Scheduler-cli tool
         
         ::
         
-        	update {index} {done/undone}
+        	update {content} {done/undone}
         
         ::
         
-        	update {index} at {date to modify}
+        	update {content} at {date to modify}
         
         
-        Example with index to modify done/undone
+        Example with content to modify done/undone
         
         ::
         
         	update 3 done
         
-        Example with index to modify date
+        Example with content to modify date
         
         ::
         
@@ -124,7 +124,7 @@ Description: Scheduler-cli tool
         
         ::
         
-        	show {index}
+        	show {content}
         
         ::
         
@@ -144,7 +144,7 @@ Description: Scheduler-cli tool
         
         	show all
         
-        Example with index
+        Example with content
         
         ::
         
