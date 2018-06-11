@@ -33,7 +33,7 @@ setup(
         'console_scripts': [
             'scheduler-cli=scheduler.main:main_scheduler',
             'scheduler-server=server.main:scheduler_server',
-            'scheduler-slack=server.main:slack_server',
+            'scheduler-slack=slackbot.main:slack_server',
         ],
     },
 )
