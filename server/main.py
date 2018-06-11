@@ -1,16 +1,20 @@
 from flask import Flask, jsonify, request
 from pathlib import Path
-import sqlite3
+import sqlite3, sys
+from . import __version__
 home_dir = str(Path.home())
 app = Flask(__name__)
 
 def scheduler_server():
-    conn = sqlite3.connect(home_dir + '/server.db')
-    cur = conn.cursor()
-    create_db = 'create table if not exists server(user text not null, year integer not null, category text not null, month integer not null, day integer not null, what text not null, done integer)'
-    cur.execute(create_db)
-    conn.close()
-    app.run(host='0.0.0.0', port=8865)
+    if len(sys.argv) == 2 and sys.argv[1] in ['version', 'ver', '--v']:
+        print('scheduler-server version:' + __version__)
+    else:
+        conn = sqlite3.connect(home_dir + '/server.db')
+        cur = conn.cursor()
+        create_db = 'create table if not exists server(user text not null, year integer not null, category text not null, month integer not null, day integer not null, what text not null, done integer)'
+        cur.execute(create_db)
+        conn.close()
+        app.run(host='0.0.0.0', port=8865)
 
 
 @app.route('/pull/<user_id>')
