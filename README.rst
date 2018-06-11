@@ -63,7 +63,7 @@ Example without category
 
 	delete done/undone
 
-Example with index
+Example with content
 
 ::
 
@@ -95,13 +95,13 @@ Example with state
 	update {content} at {date to modify}
 
 
-Example with index to modify done/undone
+Example with content to modify done/undone
 
 ::
 
 	update hit hoesung done
 
-Example with index to modify date
+Example with content to modify date
 
 ::
 
@@ -146,7 +146,7 @@ Example with showing all schedule
 
 	show all
 
-Example with index
+Example with content
 
 ::
 
