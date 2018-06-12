@@ -350,6 +350,7 @@ def input_command(command):
             print("server error!")
             return 1
         result = received_json['result']
+        insert_data = 'insert into todo (year, category, month, day, what, done) values (?,?,?, ?, ?, ?)'
         for x in result:
             cur.execute(insert_data, x[1:])
         conn.commit()
@@ -360,7 +361,6 @@ def input_command(command):
         link = 'http://' + address + ':8865/push/' + account
         cur.execute(select_data_all)
         result = cur.fetchall()
-        print(result)
         send_json = {'result': result}
         try:
             requests.post(link, json=send_json)
