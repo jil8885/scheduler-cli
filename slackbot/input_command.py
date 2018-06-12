@@ -19,7 +19,6 @@ def handler(command, user):
 
 def input_command(command, user):
     slack = Slacker(os.getenv('slack'))
-    print(command)
     if command[0] == 'add':
         if '/' in command[1] and len(command[1].split('/')) == 3:
             year, month, day = command[1].split('/')
@@ -65,6 +64,28 @@ def input_command(command, user):
             slack.chat.post_message(channel = user, text=string, as_user=True)
         elif len(command) == 2 and command[1] == 'all':
             result = return_cal(user)
+            print(result)
+            string = make_string(result)
+            slack.chat.post_message(channel = user, text=string, as_user=True)
+    elif command[0] == 'delete':
+        if len(command) > 2 and command[1] == 'in':
+            cat = ''
+            for x in command[2:]:
+                cat += x + ' '
+            delete_cal_cat(user, cat.strip())
+            result = return_cal(user)
+            string = make_string(result)
+            slack.chat.post_message(channel = user, text=string, as_user=True)
+        elif len(command) == 2 and command[1] == 'all':
+            result = return_cal(user)
+            string = make_string(result)
+            slack.chat.post_message(channel = user, text=string, as_user=True)
+        elif len(command) > 1:
+            content = ''
+            for x in command[1:]:
+                content += x + ' '
+            delete_cal(user, content.strip())
+            result = return_cal(user)
             string = make_string(result)
             slack.chat.post_message(channel = user, text=string, as_user=True)
     else:
@@ -78,6 +99,7 @@ def return_cal_cat(user, category):
     select_data = 'select * from server where user=? and category=?'
     cur.execute(select_data, (user,category,))
     result = cur.fetchall()
+    conn.close()
     return result
 
 
@@ -88,7 +110,30 @@ def return_cal(user):
     select_data = 'select * from server where user=?'
     cur.execute(select_data, (user,))
     result = cur.fetchall()
+    conn.close()
     return result
+
+def delete_cal_cat(user, category):
+    conn = sqlite3.connect(home_dir + '/server.db')
+    cur = conn.cursor()
+    select_data = 'delete from server where user=? and category=?'
+    cur.execute(select_data, (user,category,))
+    conn.commit()
+    conn.close()
+
+def delete_cal(user, content):
+    conn = sqlite3.connect(home_dir + '/server.db')
+    cur = conn.cursor()
+    select_data = 'delete from server where user=? and content = ?'
+    cur.execute(select_data, (user,))
+    conn.close()
+
+def delete_cal_all(user):
+    conn = sqlite3.connect(home_dir + '/server.db')
+    cur = conn.cursor()
+    select_data = 'delete from server where user=?'
+    cur.execute(select_data, (user,))
+    conn.close()
 
 def add_cal(category, year, month, day, content, finished, user):
     conn = sqlite3.connect(home_dir + '/server.db')

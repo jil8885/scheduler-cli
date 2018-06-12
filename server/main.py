@@ -24,19 +24,21 @@ def pull_user(user_id):
     select_data = 'select * from server where user=?'
     cur.execute(select_data, (user_id,))
     result = cur.fetchall()
+    print(result)
     data = {'account': user_id, 'result': result}
     print("calender from", user_id, "is pulled from server")
     return jsonify(data)
 
 
 @app.route('/push/<user_id>', methods=['POST'])
-def push_user(user_id):
+def push_userr(user_id):
     conn = sqlite3.connect(home_dir + '/server.db')
     cur = conn.cursor()
     delete_db = 'delete from server where user=? and what=?'
-    insert_db = 'insert into server (year, user, category, month, day, what, done) values (?,?,?,?,?,?,?)'
+    insert_db = 'insert into server (user, year, category, month, day, what, done) values (?,?,?,?,?,?,?)'
     received_json = request.get_json()
     content = received_json['result']
+    print(content)
     for x in content:
         cal = [user_id] + x
         cur.execute(delete_db, (cal[0], cal[4],))
