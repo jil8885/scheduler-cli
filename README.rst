@@ -190,6 +190,20 @@ Example with state
 	sync
 
 
+You can use this module directly from terminal through command starts with scheduler-cli
+
+8. Start calender sync server
+
+::
+
+	scheduler-server
+
+9. Start calender slack bot server
+
+::
+
+	scheduler-slack
+
 	
 Changelog
 -----------

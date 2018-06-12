@@ -55,10 +55,15 @@ show schedules
 	get all schedule at month       - show in {month}                     ex) show at july (not a number)
 
 
-
 update from the server
 ------------------------
 
 	pull schedule from server       - pull
 	push schedule to server         - push
 	sync schedule with server	- sync
+
+
+You can use this module directly from terminal through command starts with scheduler-cli
+
+You can start calender sync server with command 'scheduler-server'
+You can start calender slack bot server with command 'scheduler-slack'
