@@ -19,7 +19,8 @@ def slack_server():
         while True:
             msg = json.loads(slack_socket.recv())
             try:
-                handler(msg['text'], msg['user'])
+                string = handler(msg['text'], msg['user'])
+                slack.chat.post_message(channel=msg['user'], text=string)
             except:
                 pass
 

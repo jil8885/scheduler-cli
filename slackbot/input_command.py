@@ -3,6 +3,7 @@ from pathlib import Path
 from .valid_date import valid_date
 from .make_string import make_string
 from slacker import Slacker
+import websocket
 home_dir = str(Path.home())
 def handler(command, user):
     conn = sqlite3.connect(home_dir + '/server.db')
@@ -12,13 +13,13 @@ def handler(command, user):
     conn.close()
     command_list = command.split(' ')
     if command_list[0] == '!scheduler':
-        input_command(command_list[1:], user)
+        string = input_command(command_list[1:], user)
+        return string
     
 
 
 
 def input_command(command, user):
-    slack = Slacker(os.getenv('slack'))
     if command[0] == 'add':
         if '/' in command[1] and len(command[1].split('/')) == 3:
             year, month, day = command[1].split('/')
@@ -53,7 +54,7 @@ def input_command(command, user):
             category = category.strip()
             content = content.strip()
             add_cal(category, int(year), int(month), int(day), content, 0, user)
-            slack.chat.post_message(channel = user, text='add ok', as_user=True)
+            string = 'add ok'
     elif command[0] == 'show':
         if len(command) > 2 and command[1] == 'in':
             cat = ''
@@ -61,12 +62,9 @@ def input_command(command, user):
                 cat += x + ' '
             result = return_cal_cat(user, cat.strip())
             string = make_string(result)
-            slack.chat.post_message(channel = user, text=string, as_user=True)
         elif len(command) == 2 and command[1] == 'all':
             result = return_cal(user)
-            print(result)
             string = make_string(result)
-            slack.chat.post_message(channel = user, text=string, as_user=True)
     elif command[0] == 'delete':
         if len(command) > 2 and command[1] == 'in':
             cat = ''
@@ -75,11 +73,9 @@ def input_command(command, user):
             delete_cal_cat(user, cat.strip())
             result = return_cal(user)
             string = make_string(result)
-            slack.chat.post_message(channel = user, text=string, as_user=True)
         elif len(command) == 2 and command[1] == 'all':
             result = return_cal(user)
             string = make_string(result)
-            slack.chat.post_message(channel = user, text=string, as_user=True)
         elif len(command) > 1:
             content = ''
             for x in command[1:]:
@@ -87,10 +83,9 @@ def input_command(command, user):
             delete_cal(user, content.strip())
             result = return_cal(user)
             string = make_string(result)
-            slack.chat.post_message(channel = user, text=string, as_user=True)
     else:
         string = '!scheduler add {due} {content} in {category}\n!scheduler show all\n!scheduler show in {category}'
-        slack.chat.post_message(channel = user, text=string, as_user=True)
+    return string
 
  
 def return_cal_cat(user, category):
