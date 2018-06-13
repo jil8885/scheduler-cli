@@ -13,6 +13,9 @@ Travis CI
 
 [![Build Status](https://travis-ci.org/jil8885/scheduler-cli.svg?branch=master)](https://travis-ci.org/jil8885/scheduler-cli)
 
+Wercker
+
+[![wercker status](https://app.wercker.com/status/a733759cfdcbf378d1d116d64c78b8e2/s/master "wercker status")](https://app.wercker.com/project/byKey/a733759cfdcbf378d1d116d64c78b8e2)
 
 
 

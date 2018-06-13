@@ -1,4 +1,4 @@
-build-py35:
+build:
   box: python:3.5
   steps:
     - pip-install
