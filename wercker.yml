@@ -43,7 +43,7 @@ build:
         scheduler-cli show hit hoesung2
         scheduler-cli show in cat1
         scheduler-cli show at july
-build-py36:
+build:
   box: python:3.6
   steps:
     - pip-install
