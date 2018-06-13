@@ -18,6 +18,8 @@ Wercker
 [![wercker status](https://app.wercker.com/status/a733759cfdcbf378d1d116d64c78b8e2/s/master "wercker status")](https://app.wercker.com/project/byKey/a733759cfdcbf378d1d116d64c78b8e2)
 
 
+Codeship
+[![Codeship Status for codeship/documentation](https://codeship.com/projects/0bdb0440-3af5-0133-00ea-0ebda3a33bf6/status?branch=master)](https://codeship.com/projects/293979)
 
 
 Installation
