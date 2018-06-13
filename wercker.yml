@@ -1,0 +1,90 @@
+build-py35:
+  box: python:3.5
+  steps:
+    - pip-install
+    - pip-install:
+      requirements_file: ""
+      extra_args: "-e ."
+    - script:
+      name: Test on python 3.5
+      code: |
+        scheduler-cli version
+        scheduler-server version
+        scheduler-cli add 2019/03/02 hit hoesung in cat1
+        scheduler-cli add 2019/04/02 hit hoesung in cat2
+        scheduler-cli add 2019/05/02 hit hoesung in cat2
+        scheduler-cli show all
+        scheduler-cli add 2018/06/02 hit hoesung
+        scheduler-cli add 2018/07/02 hit hoesung
+        scheduler-cli add 2018/08/02 hit hoesung
+        scheduler-cli show all
+        scheduler-cli delete all
+        scheduler-cli add 2019/03/02 hit hoesung in cat1
+        scheduler-cli add 2019/04/02 hit hoesung in cat2
+        scheduler-cli add 2019/05/02 hit hoesung in cat2
+        scheduler-cli show all
+        scheduler-cli add 2018/06/02 hit hoesung2
+        scheduler-cli add 2018/07/02 hit hoesung2
+        scheduler-cli add 2018/08/02 hit hoesung2
+        scheduler-cli show all
+        scheduler-cli delete hit hoesung
+        scheduler-cli show all
+        scheduler-cli update hit hoesung2 done
+        scheduler-cli show all
+        scheduler-cli update hit hoesung2 at 2018/7/1
+        scheduler-cli add 2019/03/02 hit hoesung1 in cat1
+        scheduler-cli add 2019/04/02 hit hoesung2 in cat2
+        scheduler-cli add 2019/05/02 hit hoesung3 in cat3
+        scheduler-cli show all
+        scheduler-cli update in cat1 done
+        scheduler-cli show all
+        scheduler-cli update in cat1 at 2018/7/1
+        scheduler-cli show all
+        scheduler-cli show hit hoesung2
+        scheduler-cli show in cat1
+        scheduler-cli show at july
+build-py36:
+  box: python:3.6
+  steps:
+    - pip-install
+    - pip-install:
+      requirements_file: ""
+      extra_args: "-e ."
+    - script:
+      name: Test on python 3.6
+      code: |
+        scheduler-cli version
+        scheduler-server version
+        scheduler-cli add 2019/03/02 hit hoesung in cat1
+        scheduler-cli add 2019/04/02 hit hoesung in cat2
+        scheduler-cli add 2019/05/02 hit hoesung in cat2
+        scheduler-cli show all
+        scheduler-cli add 2018/06/02 hit hoesung
+        scheduler-cli add 2018/07/02 hit hoesung
+        scheduler-cli add 2018/08/02 hit hoesung
+        scheduler-cli show all
+        scheduler-cli delete all
+        scheduler-cli add 2019/03/02 hit hoesung in cat1
+        scheduler-cli add 2019/04/02 hit hoesung in cat2
+        scheduler-cli add 2019/05/02 hit hoesung in cat2
+        scheduler-cli show all
+        scheduler-cli add 2018/06/02 hit hoesung2
+        scheduler-cli add 2018/07/02 hit hoesung2
+        scheduler-cli add 2018/08/02 hit hoesung2
+        scheduler-cli show all
+        scheduler-cli delete hit hoesung
+        scheduler-cli show all
+        scheduler-cli update hit hoesung2 done
+        scheduler-cli show all
+        scheduler-cli update hit hoesung2 at 2018/7/1
+        scheduler-cli add 2019/03/02 hit hoesung1 in cat1
+        scheduler-cli add 2019/04/02 hit hoesung2 in cat2
+        scheduler-cli add 2019/05/02 hit hoesung3 in cat3
+        scheduler-cli show all
+        scheduler-cli update in cat1 done
+        scheduler-cli show all
+        scheduler-cli update in cat1 at 2018/7/1
+        scheduler-cli show all
+        scheduler-cli show hit hoesung2
+        scheduler-cli show in cat1
+        scheduler-cli show at july
