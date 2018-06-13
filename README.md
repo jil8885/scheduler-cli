@@ -27,7 +27,7 @@ Installation
 	
 
 
-w
+
 add schedule
 -----------------
 
