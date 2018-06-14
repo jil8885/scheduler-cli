@@ -352,6 +352,8 @@ def input_command(command):
         result = received_json['result']
         insert_data = 'insert into todo (year, category, month, day, what, done) values (?,?,?, ?, ?, ?)'
         for x in result:
+            delete_data = 'delete from todo where year=? and category=? and month=? and day=? and what=?'
+            cur.execute(delete_data, x[1:-1])
             cur.execute(insert_data, x[1:])
         conn.commit()
         conn.close()

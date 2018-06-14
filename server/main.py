@@ -38,10 +38,10 @@ def push_userr(user_id):
     insert_db = 'insert into server (user, year, category, month, day, what, done) values (?,?,?,?,?,?,?)'
     received_json = request.get_json()
     content = received_json['result']
-    print(content)
     for x in content:
         cal = [user_id] + x
-        cur.execute(delete_db, (cal[0], cal[4],))
+        print(cal)
+        cur.execute(delete_db, (cal[1], cal[4],))
         cur.execute(insert_db, cal)
     conn.commit()
     conn.close()
