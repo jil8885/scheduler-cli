@@ -26,7 +26,7 @@ Codeship
 Installation
 -----------------
 
-	pip install scheduler-cli
+	pip install scheduler-todo
 	
 
 
